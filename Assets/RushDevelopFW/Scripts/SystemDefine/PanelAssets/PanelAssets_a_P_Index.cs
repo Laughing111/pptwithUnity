@@ -1,0 +1,20 @@
+public enum PanelAssets_a_P_Index {
+a_P_Index,
+a_title,
+a_title_photo,
+a_title_gif,
+a_icon,
+a_icon_gif,
+a_icon_photo,
+a_btn,
+a_btn_next,
+a_btn_right,
+a_btn_left,
+a_textTitle,
+a_gifActive,
+a_gifAc,
+a_jpgInAc,
+a_gifInActive,
+a_gifInAc,
+a_jpgAc
+}

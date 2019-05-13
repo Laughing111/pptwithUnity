@@ -1,0 +1,152 @@
+﻿[
+    {
+        "name":"a_P_Index",
+        "a_P_Index": [
+            {   "name":"a_icon_gif",
+                "url": "https://betech-kavin.oss-cn-hangzhou.aliyuncs.com/ppt/test2/beginpage/gifhint.png"
+            },
+            {
+                "name":"a_icon_photo",
+                "url": "https://betech-kavin.oss-cn-hangzhou.aliyuncs.com/ppt/test2/beginpage/jpghint.png"
+            },
+            {
+                "name":"a_btn_next_normal",
+                "url": "https://betech-kavin.oss-cn-hangzhou.aliyuncs.com/ppt/test2/beginpage/nextbtn.png"
+            },
+            {
+                "name":"a_btn_next_active",
+                "url": "https://betech-kavin.oss-cn-hangzhou.aliyuncs.com/ppt/test2/beginpage/nextbtn.png"
+            },
+            {
+                 "name":"a_gifAc",
+                "url": "https://betech-kavin.oss-cn-hangzhou.aliyuncs.com/ppt/test2/beginpage/gificon1.png"
+            },
+            {   "name":"a_gifInAc",
+                "url": "https://betech-kavin.oss-cn-hangzhou.aliyuncs.com/ppt/test2/beginpage/gificon2.png"
+            },
+            {
+                "name":"a_jpgAc",
+                "url": "https://betech-kavin.oss-cn-hangzhou.aliyuncs.com/ppt/test2/beginpage/jpgicon1.png"
+            },
+            {
+                "name":"a_jpgInAc",
+                "url": "https://betech-kavin.oss-cn-hangzhou.aliyuncs.com/ppt/test2/beginpage/jpgicon2.png"
+            }
+        ]
+    },
+    {
+        "name":"b_P_Shot",
+        "b_P_Shot": [
+            {
+                "name":"b_bg",
+                "url": "https://betech-kavin.oss-cn-hangzhou.aliyuncs.com/ppt/test2/photopage/bg.png?v=1557215873538"
+            },
+            {
+                "name":"b_tip_photo",
+                "url": "https://betech-kavin.oss-cn-hangzhou.aliyuncs.com/ppt/test2/photopage/takehint.png?v=1557215873538"
+            },
+            {
+                "name":"b_tip_gif",
+                "url": "https://betech-kavin.oss-cn-hangzhou.aliyuncs.com/ppt/test2/photopage/gif_capture_button.png?v=1557215873538"
+            },
+            {
+                "name":"b_btn_shot_active",
+                "url": "https://betech-kavin.oss-cn-hangzhou.aliyuncs.com/ppt/test2/photopage/takebtn.png?v=1557215873538"
+            },
+            {
+                "name":"b_btn_shot_normal",
+                "url": "https://betech-kavin.oss-cn-hangzhou.aliyuncs.com/ppt/test2/photopage/takebtn.png?v=1557215873538"
+            },
+            {
+                "name":"b_btn_close_normal",
+                "url": "https://betech-kavin.oss-cn-hangzhou.aliyuncs.com/ppt/test2/photopage/returnbtn.png?v=1557215873538"
+            },
+            {
+                 "name":"b_btn_close_active",
+                "url": "https://betech-kavin.oss-cn-hangzhou.aliyuncs.com/ppt/test2/photopage/returnbtn.png?v=1557215873538"
+            },
+            {
+                 "name":"b_mask",
+                "url": "https://betech-kavin.oss-cn-hangzhou.aliyuncs.com/ppt/test2/photopage/lookhint.png?v=1557215873538"
+            },
+            {
+                "name":"b_text_1",
+                "url": "https://betech-kavin.oss-cn-hangzhou.aliyuncs.com/ppt/test2/photopage/countImgs/1.png"
+            },
+            {
+                 "name":"b_text_2",
+                "url": "https://betech-kavin.oss-cn-hangzhou.aliyuncs.com/ppt/test2/photopage/countImgs/2.png"
+            },
+            {
+                 "name":"b_text_3",
+                "url": "https://betech-kavin.oss-cn-hangzhou.aliyuncs.com/ppt/test2/photopage/countImgs/3.png"
+            }
+        ]
+    },
+    {
+        "name":"c_P_Edite",
+        "c_P_Edite": [
+            {
+                "name":"c_bg",
+                "url": "https://betech-kavin.oss-cn-hangzhou.aliyuncs.com/ppt/test2/stickerpage/bg.png"
+            },
+            {
+                 "name":"c_btn_next_normal",
+                "url": "https://betech-kavin.oss-cn-hangzhou.aliyuncs.com/ppt/test2/stickerpage/nextbtn.png?v=1557215873538"
+            },
+            {
+                "name":"c_btn_next_active",
+                "url": "https://betech-kavin.oss-cn-hangzhou.aliyuncs.com/ppt/test2/stickerpage/nextbtn.png?v=1557215873538"
+            },
+            {
+                "name":"c_btn_back_normal",
+                "url": "https://betech-kavin.oss-cn-hangzhou.aliyuncs.com/ppt/test2/stickerpage/retakebtn.png?v=1557215873538"
+            },
+            {
+                "name":"c_btn_back_active",
+                "url": "https://betech-kavin.oss-cn-hangzhou.aliyuncs.com/ppt/test2/stickerpage/retakebtn.png?v=1557215873538"
+            },
+            {
+                 "name":"c_icon_default",
+                "url": "https://betech-kavin.oss-cn-hangzhou.aliyuncs.com/ppt/test2/stickerpage/defaultbtn.png"
+            }
+        ]
+    },
+    {
+         "name":"d_P_Share",
+        "d_P_Share": [
+            {
+                "name":"d_text_photo",
+                "url": "https://betech-kavin.oss-cn-hangzhou.aliyuncs.com/ppt/test2/resultpage/jpg_background.jpg"
+            },
+            {
+                "name":"d_text_gif",
+                "url": "https://betech-kavin.oss-cn-hangzhou.aliyuncs.com/ppt/test2/resultpage/gif_background.jpg"
+            },
+            {
+                "name":"d_btn_back_normal",
+                "url": "https://betech-kavin.oss-cn-hangzhou.aliyuncs.com/ppt/test2/resultpage/returnbtn.png"
+            },
+            {
+                "name":"d_btn_back_active",
+                "url": "https://betech-kavin.oss-cn-hangzhou.aliyuncs.com/ppt/test2/resultpage/returnbtn.png"
+            },
+            {
+                "name":"d_btn_print_normal",
+                "url": "https://betech-kavin.oss-cn-hangzhou.aliyuncs.com/ppt/test2/resultpage/printbtn.png"
+            },
+            {
+                "name":"d_btn_print_active",
+                "url": "https://betech-kavin.oss-cn-hangzhou.aliyuncs.com/ppt/test2/resultpage/printbtn.png"
+            },
+            {
+                "name":"d_btn_home_normal",
+                "url": "https://betech-kavin.oss-cn-hangzhou.aliyuncs.com/ppt/test2/resultpage/homebtn.png"
+            },
+            {
+                "name":"d_btn_home_active",
+                "url": "https://betech-kavin.oss-cn-hangzhou.aliyuncs.com/ppt/test2/resultpage/homebtn.png"
+            }
+        ]
+    }
+]
