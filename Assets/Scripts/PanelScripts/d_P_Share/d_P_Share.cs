@@ -30,12 +30,13 @@ public partial class d_P_Share : UIBase
     string fileName;
     private bool sucEncode;
     private string printerName;
+    public Text debugTxt;
 
     public void Awake()
     {
-        if(File.Exists(Application.persistentDataPath + "/printer.txt"))
+        if(File.Exists(Application.streamingAssetsPath + "/printer.txt"))
         {
-            printerName = File.ReadAllText(Application.persistentDataPath + "/printer.txt");
+            printerName = File.ReadAllText(Application.streamingAssetsPath + "/printer.txt");
         }  
         um = new UploadMan(fileName, (x) => {
             Debug.Log("去生成二维码:" + x + "https://h5.btech.cc/ab06-723e-11e9-baa1/index.html?i=" + fileName);
@@ -63,10 +64,14 @@ public partial class d_P_Share : UIBase
     {
         try
         {
-            Print.PrintTextureByPath(UserModel.Ins.GetLocalPath(), 1, printerName);
+            //Print.PrintTextureByPath(UserModel.Ins.GetLocalPath(), 1, "DP-DS620");
+            Texture2D tex = UserModel.Ins.GetFXJPGTex();
+            
+            Print.PrintTexture(tex.EncodeToPNG(),1, printerName);
         }
         catch(Exception e) {
             Debug.Log(e.ToString());
+            debugTxt.text = e.ToString();
         }
         
     }
@@ -131,7 +136,7 @@ public partial class d_P_Share : UIBase
     {
         if (isGif)
         {
-            Gif = UserModel.Ins.GetPreGifTex();
+            Gif = UserModel.Ins.GetGIFTex();
             GameObject cameraRect = RDResManager.LoadWithCache<GameObject>("CameraRect/d_camFX");
             Transform camRectTrans = Instantiate(cameraRect).transform;
             camRectTrans.SetParent(trans_d_picture, false);

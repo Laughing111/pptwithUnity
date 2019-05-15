@@ -27,9 +27,9 @@ public partial class b_P_Shot : UIBase
 
     private Action shotJPG;
     private Action shotGIF;
-    private Texture2D[] gifTex;
+    //private Texture2D[] gifTex;
     public delegate IEnumerator CoroutineFunc(int index);
-    private Thread gifThread;
+    //private Thread gifThread;
 
 
     public void Awake()
@@ -44,6 +44,7 @@ public partial class b_P_Shot : UIBase
         //控制拍照
         RegisterInterObjectPointUp(trans_b_btn_shot, TakeShot);
 
+        //为拍jpg和拍gif添加事件
         shotJPG += ShotInJpg;
         shotGIF += ShotInGIF;
         base.PanelInit();
@@ -51,12 +52,18 @@ public partial class b_P_Shot : UIBase
 
     private void TakeShot(PointerEventData eventData)
     {
+        //按下拍照按钮后 检查并选择拍照的模式
         CheckMode(shotJPG, shotGIF);
     }
 
     public Text dbug;
+
+    /// <summary>
+    /// 在jpg模式下拍照
+    /// </summary>
     private void ShotInJpg()
     {
+        //控制UI变化
         ShotUIDis(false);
         //开始倒计时
         try
@@ -80,19 +87,27 @@ public partial class b_P_Shot : UIBase
 
     private void GifShotEnd()
     {
-        if (!File.Exists(Application.persistentDataPath + "/gif/"))
-        {
-            Directory.CreateDirectory(Application.persistentDataPath + "/gif/");
-        }
-        GameObject.Find("GifMaker")?.GetComponent<GIFFactory>()?.MakeGif(()=>
-        {
+        //if (!File.Exists(Application.streamingAssetsPath + "/gif/"))
+        //{
+        //    Directory.CreateDirectory(Application.streamingAssetsPath + "/gif/");
+        //}
+        //GameObject.Find("GifMaker")?.GetComponent<GIFFactory>()?.MakeGif(()=>
+        //{
 
-            ShotUIDis(true);
-            UserModel.Ins.StoreLocalPath(Application.persistentDataPath + "/gif/yb.gif");
-            UserModel.Ins.CurrentState = State.Share;
+        //    ShotUIDis(true);
+        //    UserModel.Ins.StoreLocalPath(Application.streamingAssetsPath + "/gif/yb.gif");
+        //    UserModel.Ins.CurrentState = State.Edite;
 
-        });
+        //});
+        UserModel.Ins.CurrentState = State.Edite;
+        MessageCenter.GetMessage(PanelAssets_c_P_Edite.c_P_Edite.ToString(), new MessageAddress("ResetIcon", null));
     }
+
+    /// <summary>
+    /// 选择拍照的模式进行拍照
+    /// </summary>
+    /// <param name="_shotJPG"></param>
+    /// <param name="_shotGIF"></param>
     private void CheckMode(Action _shotJPG, Action _shotGIF)
     {
         if (UserModel.Ins.GetShotMode() == ShotMode.Gif)
@@ -106,7 +121,7 @@ public partial class b_P_Shot : UIBase
     }
 
     /// <summary>
-    /// 拍照UI变
+    /// 拍照UI变化
     /// </summary>
     /// <param name="isOnDis"></param>
     private void ShotUIDis(bool isOnDis)
@@ -117,15 +132,19 @@ public partial class b_P_Shot : UIBase
         trans_b_btn_shot.gameObject.SetActive(isOnDis);
         trans_b_mask.gameObject.SetActive(isOnDis);
         trans_b_btn_close.gameObject.SetActive(isOnDis);
+        trans_b_grayMask.gameObject.SetActive(isOnDis);
     }
 
+    /// <summary>
+    /// 存储方法，JPG模式，到这里结束
+    /// </summary>
+    /// <returns></returns>
     private IEnumerator PauseCamAndSave2ModelJpg()
     {
         CameraManager.Instan().CameraPause();
         //截屏处理 截屏后存储
         yield return Capture((Texture2D te) => 
-        {
-            
+        {   
             UserModel.Ins.StoreCamRaw(te);
             CameraManager.Instan().CameraResume();
             ShotUIDis(true);
@@ -133,7 +152,12 @@ public partial class b_P_Shot : UIBase
             MessageCenter.GetMessage(PanelAssets_c_P_Edite.c_P_Edite.ToString(), new MessageAddress("ResetIcon", null));
         });
     }
-
+    
+    /// <summary>
+    /// 存储方法，GIF模式
+    /// </summary>
+    /// <param name="index"></param>
+    /// <returns></returns>
     private IEnumerator PauseCamAndSave2ModelGif(int index)
     {
 
@@ -141,15 +165,21 @@ public partial class b_P_Shot : UIBase
         //截屏处理 截屏后存储
         yield return (Capture(index,(Texture2D te, int i) => {
             UserModel.Ins.StoreFXJPGTex(te, i);
-            if (!File.Exists(Application.persistentDataPath + "/png/"))
-            {
-                Directory.CreateDirectory(Application.persistentDataPath + "/png/");
-            }
-            File.WriteAllBytes(Application.persistentDataPath + "/png/" + i + ".png", te.EncodeToPNG()); 
+            //if (!File.Exists(Application.streamingAssetsPath + "/png/"))
+            //{
+            //    Directory.CreateDirectory(Application.streamingAssetsPath + "/png/");
+            //}
+            //File.WriteAllBytes(Application.streamingAssetsPath + "/png/" + i + ".png", te.EncodeToPNG()); 
             CameraManager.Instan().CameraResume();
         }));
     }
 
+    /// <summary>
+    /// 实际存储方法，存gif
+    /// </summary>
+    /// <param name="index">gif编号</param>
+    /// <param name="captureSucceed">存储完执行</param>
+    /// <returns></returns>
     private IEnumerator Capture(int index, Action<Texture2D, int> captureSucceed)
     {
         RectTransform rt = trans_b_mask.GetComponent<RectTransform>();
@@ -160,6 +190,11 @@ public partial class b_P_Shot : UIBase
         //yield return new WaitForSeconds(0.1f);
         captureSucceed?.Invoke(te, index);
     }
+    /// <summary>
+    /// 实际存储方法，存储jpg
+    /// </summary>
+    /// <param name="captureSucceed">存储完执行</param>
+    /// <returns></returns>
     private IEnumerator Capture(Action<Texture2D> captureSucceed)
     {
         RectTransform rt = trans_b_mask.GetComponent<RectTransform>();
@@ -172,7 +207,7 @@ public partial class b_P_Shot : UIBase
     }
 
     /// <summary>
-    /// 到计时处理Jpg
+    /// 到计时处理Jpg,拍照完成后，进入存储方法
     /// </summary>
     /// <param name="btnCount"></param>
     /// <param name="endEvent"></param>
@@ -199,6 +234,7 @@ public partial class b_P_Shot : UIBase
         trans_b_flash.GetComponent<RawImage>().DOFade(0, 0.5f);
         yield return new WaitForSeconds(0.7f);
         trans_b_flash.gameObject.SetActive(false);
+        //进入存储方法
         yield return PauseCamAndSave2ModelJpg();
     }
 
@@ -208,7 +244,7 @@ public partial class b_P_Shot : UIBase
     /// <param name="shotCount"></param>
     /// <param name="btnCount"></param>
     /// <param name="ShotendEvent"></param>
-    /// <param name="AllEnd"></param>
+    /// <param name="AllEnd">保证存储完后，执行最终的方法</param>
     /// <returns></returns>
     private IEnumerator CountDown(int shotCount, Transform btnCount, CoroutineFunc ShotendEvent, Action AllEnd)
     {

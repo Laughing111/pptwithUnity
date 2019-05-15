@@ -14,10 +14,12 @@ using UnityEngine;
 
 public class Root : MonoBehaviour
 {
+    public State panelState;
     // Start is called before the first frame update
     void Start()
     {
-        UserModel.Ins.CurrentState = State.Setting;
+        UserModel.Ins.CurrentState = panelState;
         UserModel.Ins.SetGifRate(0.2f);
+        Debug.Log(Application.streamingAssetsPath.Remove(0, 3)+ "/png/yb.png");
     }
 }

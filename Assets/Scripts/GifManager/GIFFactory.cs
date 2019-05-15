@@ -23,7 +23,7 @@ public class GIFFactory : MonoBehaviour, IFFmpegHandler
     }
     public void MakeGif(Action method)
     {
-        FFmpegCommands.MakeGif(Application.persistentDataPath + "/png/%d.png", Application.persistentDataPath + "/gif/yb.gif");
+        FFmpegCommands.MakeGif(Application.streamingAssetsPath + "/png/%d.png", Application.streamingAssetsPath + "/gif/yb.gif");
         succeed += method;
     }
 

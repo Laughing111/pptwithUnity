@@ -16,28 +16,38 @@ using UnityEngine.EventSystems;
 using RDFW;
 using System;
 using UnityEngine.UI;
+using System.IO;
 
 public partial class e_Setting : UIBase {
+    private UIDownLoadManager uiDownLoadManager;
+    
     public void Awake()
     {
         PanelInit();
+        uiDownLoadManager = UIDownLoadManager.Ins;
+        
     }
     public override void PanelInit()
     {
         Search4Expeted();
         RegisterInterObjectPointUp(trans_e_btn_Add, DownLoadUI);
+        AddMessage2LocalBox("PopInput", (x) => trans_e_TipGroup.gameObject.SetActive(true));
         base.PanelInit();
     }
 
     private void DownLoadUI(PointerEventData eventData)
     {
-        trans_e_tip.GetComponent<Text>().text = "正在加载中，请稍后...";
+        UIDownLoadManager.Ins.SetUUID(trans_e_InputUUID.GetComponent<InputField>().text);
+        trans_e_TipGroup.gameObject.SetActive(false);
         UIDownLoadManager.Ins.CheckAndUpdate();
     }
 
     public override void OnActive()
     {
-        trans_e_tip.GetComponent<Text>().text = "点击按钮进行UI加载...";
+        trans_e_TipGroup.gameObject.SetActive(false);
+        trans_e_tip.GetComponent<Text>().text = "正在为您初始化资源...";
+        UIDownLoadManager.Ins.debugText = trans_e_tip.GetComponent<Text>();
+        uiDownLoadManager.CheckAndUpdate();
         base.OnActive();
     }
     public override void OnInActive()

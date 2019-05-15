@@ -32,12 +32,18 @@ public class IconController : MonoBehaviour
     private Transform box;
     public Transform tools;
     int toolCounts;
+
+    public void OnDisable()
+    {
+        isControl = false;
+        tools.gameObject.SetActive(false);
+    }
     private void Start()
     {
         rotateBtn = transform.SearchforChild("c_btn_RAndS");
         mirroredBtn = transform.SearchforChild("c_btn_mirror");
         closeBtn = transform.SearchforChild("c_btn_close");
-        box = transform.parent.SearchforChild("c_box");
+        box = transform.parent.parent.parent.SearchforChild("c_box");
         tools = transform.SearchforChild("tools");
         toolCounts = tools.childCount;
         isControl = true;

@@ -66,6 +66,7 @@ public class UserModel
         CurrentState = state;
     }
 
+    private string token;
     private ShotMode shotMode;
     private Texture2D camRaw;
     private string[] localRawCam;
@@ -75,6 +76,20 @@ public class UserModel
     private string jpgLocalPath;
     private string onLineFileName;
     private string H5Url;
+
+    private Texture2D[] GifTex;
+
+    #region token
+    public string GetToken()
+    {
+        return token;
+    }
+
+    public void StoreToken(string _token)
+    {
+        token = _token;
+    }
+    #endregion
 
     private State currentState;
     public State CurrentState
@@ -90,6 +105,28 @@ public class UserModel
         {
             return currentState;
         }
+    }
+
+    /// <summary>
+    /// 存储制作完的GIF连拍图片
+    /// </summary>
+    /// <param name="te"></param>
+    /// <param name="index"></param>
+    public void StoreGIFTex(Texture2D te,int index)
+    {
+        if (GifTex == null)
+        {
+            GifTex = new Texture2D[3];
+        }
+        GifTex[index] = te;
+    }
+    /// <summary>
+    /// 获取制作完的GIF连拍图片
+    /// </summary>
+    /// <returns></returns>
+    public Texture2D[] GetGIFTex()
+    {
+        return GifTex;
     }
 
 
@@ -155,6 +192,16 @@ public class UserModel
     {
         camFX = te;
     }
+    /// <summary>
+    /// 获取制作完的照片
+    /// </summary>
+    /// <returns></returns>
+    public Texture2D GetFXJPGTex()
+    {
+        return camFX;
+    }
+
+
 
     /// <summary>
     /// 存储连拍完的JPG
@@ -174,14 +221,7 @@ public class UserModel
         return preGifTex;
     }
 
-    /// <summary>
-    /// 获取制作完的照片
-    /// </summary>
-    /// <returns></returns>
-    public Texture2D GetFXJPGTex()
-    {
-        return camFX;
-    }
+    
 
     /// <summary>
     /// 存储并拼接H5地址
