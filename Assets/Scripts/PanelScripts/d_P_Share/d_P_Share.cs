@@ -117,8 +117,8 @@ public partial class d_P_Share : UIBase
         {
             fileName = RDTimer.GetTime() + ".gif";
             um.fileName = fileName;
-            trans_d_text_gif.gameObject.SetActive(true);
-            trans_d_text_photo.gameObject.SetActive(false);
+            trans_d_bg_gif.gameObject.SetActive(true);
+            trans_d_bg_photo.gameObject.SetActive(false);
             trans_d_btn_print.gameObject.SetActive(false);
             Display(true);
         }
@@ -126,8 +126,8 @@ public partial class d_P_Share : UIBase
         {
             fileName = RDTimer.GetTime() + ".png";
             um.fileName = fileName;
-            trans_d_text_gif.gameObject.SetActive(false);
-            trans_d_text_photo.gameObject.SetActive(true);
+            trans_d_bg_gif.gameObject.SetActive(false);
+            trans_d_bg_photo.gameObject.SetActive(true);
             Display(false);
         }
     }

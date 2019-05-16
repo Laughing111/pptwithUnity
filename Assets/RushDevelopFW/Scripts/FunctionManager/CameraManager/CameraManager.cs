@@ -104,6 +104,28 @@ public class CameraManager {
         return result;
     }
 
+    public Texture2D AddOutLine(Texture2D source,int outLineWidth,Color color)
+    {
+        Texture2D result = new Texture2D(source.width + outLineWidth * 2, source.height + outLineWidth * 2,source.format,false);
+        for(int i=0;i<result.height;i++)
+        {
+            for(int j = 0; j <result.width; j++)
+            {
+                if (i >= outLineWidth&&j>=outLineWidth&&i<=result.height-outLineWidth&&j<=result.width-outLineWidth)
+                {
+                    Color c= source.GetPixel(j,i);
+                    result.SetPixel(j, i, c);
+                }
+                else
+                {
+                    result.SetPixel(j, i, color);
+                }
+            }
+        }
+        result.Apply();
+        return result;
+    }
+
     /// <summary>
     /// 摄像机关闭
     /// </summary>

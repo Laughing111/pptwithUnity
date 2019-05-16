@@ -17,8 +17,8 @@ public partial class a_P_Index : UIBase {
         Search4Expeted();
         RegisterInterObjectPointUp(trans_a_btn_left, ChangeMode);
         RegisterInterObjectPointUp(trans_a_btn_right, ChangeMode);
-        RegisterInterObjectPointUp(trans_a_gifInAc, ChangeMode);
-        RegisterInterObjectPointUp(trans_a_jpgInAc, ChangeMode);
+        RegisterInterObjectPointUp(trans_a_btn_gif_normal_c, ChangeMode);
+        RegisterInterObjectPointUp(trans_a_btn_photo_normal_c, ChangeMode);
         RegisterInterObjectPointUp(trans_a_btn_next, Go2Shot);
         base.PanelInit();
     }
@@ -54,16 +54,16 @@ public partial class a_P_Index : UIBase {
         {
             trans_a_gifActive.gameObject.SetActive(false);
             trans_a_gifInActive.gameObject.SetActive(true);
-            trans_a_icon_gif.gameObject.SetActive(false);
-            trans_a_icon_photo.gameObject.SetActive(true);
+            trans_a_bg_gif.gameObject.SetActive(false);
+            trans_a_bg_photo.gameObject.SetActive(true);
             UserModel.Ins.SetShotMode(ShotMode.Jpg);
         }
         else
         {
             trans_a_gifActive.gameObject.SetActive(true);
             trans_a_gifInActive.gameObject.SetActive(false);
-            trans_a_icon_gif.gameObject.SetActive(true);
-            trans_a_icon_photo.gameObject.SetActive(false);
+            trans_a_bg_gif.gameObject.SetActive(true);
+            trans_a_bg_photo.gameObject.SetActive(false);
             UserModel.Ins.SetShotMode(ShotMode.Gif);
         }
     }

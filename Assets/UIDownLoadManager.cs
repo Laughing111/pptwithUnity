@@ -75,13 +75,21 @@ public class UIDownLoadManager : MonoBehaviour {
         for (int i = 0; i < data.Count; i++)
         {   
             string panelName = data[i]["name"].ToString();
-            Debug.Log(panelName);
-            int assetsCount = data[i][panelName].Count;
-            Debug.Log(assetsCount);
-            for(int j = 0; j < assetsCount; j++)
+            if(panelName!= "g_p")
             {
-                string asstsName = data[i][panelName][j]["name"].ToString();
-                panelAssetsPairs.Add(data[i][panelName][j]["name"].ToString(), data[i][panelName][j]["url"].ToString());
+                Debug.Log(panelName);
+                int assetsCount = data[i][panelName].Count;
+                Debug.Log(assetsCount);
+                for (int j = 0; j < assetsCount; j++)
+                {
+                    string asstsName = data[i][panelName][j]["name"].ToString();
+                    panelAssetsPairs.Add(data[i][panelName][j]["name"].ToString(), data[i][panelName][j]["url"].ToString());
+                    //todo位置参数
+                }
+            }
+            else  //全局配置参数
+            {
+
             }
         }
 

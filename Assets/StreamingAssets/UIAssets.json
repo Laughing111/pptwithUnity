@@ -1,152 +1,305 @@
-﻿[
-    {
-        "name":"a_P_Index",
-        "a_P_Index": [
-            {   "name":"a_icon_gif",
-                "url": "https://betech-kavin.oss-cn-hangzhou.aliyuncs.com/ppt/test2/beginpage/gifhint.png"
-            },
-            {
-                "name":"a_icon_photo",
-                "url": "https://betech-kavin.oss-cn-hangzhou.aliyuncs.com/ppt/test2/beginpage/jpghint.png"
-            },
-            {
-                "name":"a_btn_next_normal",
-                "url": "https://betech-kavin.oss-cn-hangzhou.aliyuncs.com/ppt/test2/beginpage/nextbtn.png"
-            },
-            {
-                "name":"a_btn_next_active",
-                "url": "https://betech-kavin.oss-cn-hangzhou.aliyuncs.com/ppt/test2/beginpage/nextbtn.png"
-            },
-            {
-                 "name":"a_gifAc",
-                "url": "https://betech-kavin.oss-cn-hangzhou.aliyuncs.com/ppt/test2/beginpage/gificon1.png"
-            },
-            {   "name":"a_gifInAc",
-                "url": "https://betech-kavin.oss-cn-hangzhou.aliyuncs.com/ppt/test2/beginpage/gificon2.png"
-            },
-            {
-                "name":"a_jpgAc",
-                "url": "https://betech-kavin.oss-cn-hangzhou.aliyuncs.com/ppt/test2/beginpage/jpgicon1.png"
-            },
-            {
-                "name":"a_jpgInAc",
-                "url": "https://betech-kavin.oss-cn-hangzhou.aliyuncs.com/ppt/test2/beginpage/jpgicon2.png"
-            }
-        ]
-    },
-    {
-        "name":"b_P_Shot",
-        "b_P_Shot": [
-            {
-                "name":"b_bg",
-                "url": "https://betech-kavin.oss-cn-hangzhou.aliyuncs.com/ppt/test2/photopage/bg.png?v=1557215873538"
-            },
-            {
-                "name":"b_tip_photo",
-                "url": "https://betech-kavin.oss-cn-hangzhou.aliyuncs.com/ppt/test2/photopage/takehint.png?v=1557215873538"
-            },
-            {
-                "name":"b_tip_gif",
-                "url": "https://betech-kavin.oss-cn-hangzhou.aliyuncs.com/ppt/test2/photopage/gif_capture_button.png?v=1557215873538"
-            },
-            {
-                "name":"b_btn_shot_active",
-                "url": "https://betech-kavin.oss-cn-hangzhou.aliyuncs.com/ppt/test2/photopage/takebtn.png?v=1557215873538"
-            },
-            {
-                "name":"b_btn_shot_normal",
-                "url": "https://betech-kavin.oss-cn-hangzhou.aliyuncs.com/ppt/test2/photopage/takebtn.png?v=1557215873538"
-            },
-            {
-                "name":"b_btn_close_normal",
-                "url": "https://betech-kavin.oss-cn-hangzhou.aliyuncs.com/ppt/test2/photopage/returnbtn.png?v=1557215873538"
-            },
-            {
-                 "name":"b_btn_close_active",
-                "url": "https://betech-kavin.oss-cn-hangzhou.aliyuncs.com/ppt/test2/photopage/returnbtn.png?v=1557215873538"
-            },
-            {
-                 "name":"b_mask",
-                "url": "https://betech-kavin.oss-cn-hangzhou.aliyuncs.com/ppt/test2/photopage/lookhint.png?v=1557215873538"
-            },
-            {
-                "name":"b_text_1",
-                "url": "https://betech-kavin.oss-cn-hangzhou.aliyuncs.com/ppt/test2/photopage/countImgs/1.png"
-            },
-            {
-                 "name":"b_text_2",
-                "url": "https://betech-kavin.oss-cn-hangzhou.aliyuncs.com/ppt/test2/photopage/countImgs/2.png"
-            },
-            {
-                 "name":"b_text_3",
-                "url": "https://betech-kavin.oss-cn-hangzhou.aliyuncs.com/ppt/test2/photopage/countImgs/3.png"
-            }
-        ]
-    },
-    {
-        "name":"c_P_Edite",
-        "c_P_Edite": [
-            {
-                "name":"c_bg",
-                "url": "https://betech-kavin.oss-cn-hangzhou.aliyuncs.com/ppt/test2/stickerpage/bg.png"
-            },
-            {
-                 "name":"c_btn_next_normal",
-                "url": "https://betech-kavin.oss-cn-hangzhou.aliyuncs.com/ppt/test2/stickerpage/nextbtn.png?v=1557215873538"
-            },
-            {
-                "name":"c_btn_next_active",
-                "url": "https://betech-kavin.oss-cn-hangzhou.aliyuncs.com/ppt/test2/stickerpage/nextbtn.png?v=1557215873538"
-            },
-            {
-                "name":"c_btn_back_normal",
-                "url": "https://betech-kavin.oss-cn-hangzhou.aliyuncs.com/ppt/test2/stickerpage/retakebtn.png?v=1557215873538"
-            },
-            {
-                "name":"c_btn_back_active",
-                "url": "https://betech-kavin.oss-cn-hangzhou.aliyuncs.com/ppt/test2/stickerpage/retakebtn.png?v=1557215873538"
-            },
-            {
-                 "name":"c_icon_default",
-                "url": "https://betech-kavin.oss-cn-hangzhou.aliyuncs.com/ppt/test2/stickerpage/defaultbtn.png"
-            }
-        ]
-    },
-    {
-         "name":"d_P_Share",
-        "d_P_Share": [
-            {
-                "name":"d_text_photo",
-                "url": "https://betech-kavin.oss-cn-hangzhou.aliyuncs.com/ppt/test2/resultpage/jpg_background.jpg"
-            },
-            {
-                "name":"d_text_gif",
-                "url": "https://betech-kavin.oss-cn-hangzhou.aliyuncs.com/ppt/test2/resultpage/gif_background.jpg"
-            },
-            {
-                "name":"d_btn_back_normal",
-                "url": "https://betech-kavin.oss-cn-hangzhou.aliyuncs.com/ppt/test2/resultpage/returnbtn.png"
-            },
-            {
-                "name":"d_btn_back_active",
-                "url": "https://betech-kavin.oss-cn-hangzhou.aliyuncs.com/ppt/test2/resultpage/returnbtn.png"
-            },
-            {
-                "name":"d_btn_print_normal",
-                "url": "https://betech-kavin.oss-cn-hangzhou.aliyuncs.com/ppt/test2/resultpage/printbtn.png"
-            },
-            {
-                "name":"d_btn_print_active",
-                "url": "https://betech-kavin.oss-cn-hangzhou.aliyuncs.com/ppt/test2/resultpage/printbtn.png"
-            },
-            {
-                "name":"d_btn_home_normal",
-                "url": "https://betech-kavin.oss-cn-hangzhou.aliyuncs.com/ppt/test2/resultpage/homebtn.png"
-            },
-            {
-                "name":"d_btn_home_active",
-                "url": "https://betech-kavin.oss-cn-hangzhou.aliyuncs.com/ppt/test2/resultpage/homebtn.png"
-            }
-        ]
-    }
-]
+﻿[{
+    "name": "g_p",
+    "g_p": [{
+        "name": "g_mode_photo",
+        "mode": 1
+    }, {
+        "name": "g_mode_gif",
+        "mode": 1
+    }, {
+        "name": "g_mode_pstick",
+        "mode": 1
+    }, {
+        "name": "g_mode_gstick",
+        "mode": 1
+    }, {
+        "name": "g_mode_print",
+        "mode": 1
+    }, {
+        "name": "g_mode_frame",
+        "mode": 1
+    }, {
+        "name": "g_num_pw",
+        "num": "1920"
+    }, {
+        "name": "g_num_ph",
+        "num": "1080"
+    }, {
+        "name": "g_num_pfp",
+        "num": "10"
+    }, {
+        "name": "g_url_pf",
+        "url": "http://x-resource.oss-cn-hangzhou.aliyuncs.com/e6d0-98b7-28ea-ddf8/h5/global/photoframe.png"
+    }]
+}, {
+    "name": "a_p_index",
+    "a_p_index": [{
+        "name": "a_bg_photo",
+        "url": "https://betech-kavin.oss-cn-hangzhou.aliyuncs.com/ppt/test2/beginpage/jpghint.png"
+    }, {
+        "name": "a_bg_gif",
+        "url": "https://betech-kavin.oss-cn-hangzhou.aliyuncs.com/ppt/test2/beginpage/gifhint.png"
+    }, {
+        "name": "a_btn_next_normal",
+        "x": "1650",
+        "y": "816",
+        "url": "https://betech-kavin.oss-cn-hangzhou.aliyuncs.com/ppt/test2/beginpage/nextbtn.png"
+    }, {
+        "name": "a_btn_next_active",
+        "x": "1650",
+        "y": "816",
+        "url": "https://betech-kavin.oss-cn-hangzhou.aliyuncs.com/ppt/test2/beginpage/nextbtn.png"
+    }, {
+        "name": "a_btn_gif_normal_c",
+        "x": "1650",
+        "y": "190",
+        "url": "https://betech-kavin.oss-cn-hangzhou.aliyuncs.com/ppt/test2/beginpage/gificon2.png"
+    }, {
+        "name": "a_btn_gif_active_c",
+        "x": "1650",
+        "y": "190",
+        "url": "https://betech-kavin.oss-cn-hangzhou.aliyuncs.com/ppt/test2/beginpage/gificon1.png"
+    }, {
+        "name": "a_btn_photo_normal_c",
+        "x": "1485",
+        "y": "82",
+        "url": "https://betech-kavin.oss-cn-hangzhou.aliyuncs.com/ppt/test2/beginpage/jpgicon2.png"
+    }, {
+        "name": "a_btn_photo_active_c",
+        "x": "1485",
+        "y": "82",
+        "url": "https://betech-kavin.oss-cn-hangzhou.aliyuncs.com/ppt/test2/beginpage/jpgicon1.png"
+    }]
+}, {
+    "name": "b_p_shot",
+    "b_p_shot": [{
+        "name": "b_bg",
+        "url": "https://betech-kavin.oss-cn-hangzhou.aliyuncs.com/ppt/test2/photopage/bg.png?v=1557848325791"
+    }, {
+        "name": "b_hint_photo",
+        "x": 780,
+        "y": 758,
+        "url": "https://betech-kavin.oss-cn-hangzhou.aliyuncs.com/ppt/test2/photopage/takehint.png?v=1557848325791"
+    }, {
+        "name": "b_hint_gif",
+        "x": 780,
+        "y": 758,
+        "url": "https://betech-kavin.oss-cn-hangzhou.aliyuncs.com/ppt/test2/photopage/gif_capture_button.png?v=1557848325791"
+    }, {
+        "name": "b_btn_shot_normal",
+        "x": 870,
+        "y": 874,
+        "url": "https://betech-kavin.oss-cn-hangzhou.aliyuncs.com/ppt/test2/photopage/takebtn.png?v=1557848325791"
+    }, {
+        "name": "b_btn_shot_active",
+        "x": 870,
+        "y": 874,
+        "url": "https://betech-kavin.oss-cn-hangzhou.aliyuncs.com/ppt/test2/photopage/takebtn.png?v=1557848325791"
+    }, {
+        "name": "b_btn_close_normal",
+        "x": 1600,
+        "y": 34,
+        "url": "https://betech-kavin.oss-cn-hangzhou.aliyuncs.com/ppt/test2/photopage/returnbtn.png?v=1557848325791"
+    }, {
+        "name": "b_btn_close_active",
+        "x": 1600,
+        "y": 34,
+        "url": "https://betech-kavin.oss-cn-hangzhou.aliyuncs.com/ppt/test2/photopage/returnbtn.png?v=1557848325791"
+    }, {
+        "name": "b_hint_look",
+        "x": 240,
+        "y": 0,
+        "url": "https://betech-kavin.oss-cn-hangzhou.aliyuncs.com/ppt/test2/photopage/lookhint.png?v=1557848325791"
+    }, {
+        "name": "b_hint_cd1",
+        "x": 240,
+        "y": 0,
+        "url": "https://betech-kavin.oss-cn-hangzhou.aliyuncs.com/ppt/test2/photopage/countImgs/1.png"
+    }, {
+        "name": "b_hint_cd2",
+        "x": 240,
+        "y": 0,
+        "url": "https://betech-kavin.oss-cn-hangzhou.aliyuncs.com/ppt/test2/photopage/countImgs/2.png"
+    }, {
+        "name": "b_hint_cd3",
+        "x": 240,
+        "y": 0,
+        "url": "https://betech-kavin.oss-cn-hangzhou.aliyuncs.com/ppt/test2/photopage/countImgs/3.png"
+    }, {
+        "name": "b_area_lv",
+        "x": 240,
+        "y": 0,
+        "width": 1440,
+        "height": 1080
+    }]
+}, {
+    "name": "c_p_stick",
+	"c_p_stick": [
+		{
+			"name": "c_bg",
+			"url": "https://betech-kavin.oss-cn-hangzhou.aliyuncs.com/ppt/test2/stickerpage/bg.png"
+		},
+		{
+			"name": "c_btn_next_normal",
+			"x": 1680,
+			"y": 550,
+			"url": "https://betech-kavin.oss-cn-hangzhou.aliyuncs.com/ppt/test2/stickerpage/nextbtn.png?v=1557848325791"
+		},
+		{
+			"name": "c_btn_next_active",
+			"x": 1680,
+			"y": 550,
+			"url": "https://betech-kavin.oss-cn-hangzhou.aliyuncs.com/ppt/test2/stickerpage/nextbtn.png?v=1557848325791"
+		},
+		{
+			"name": "c_btn_back_normal",
+			"x": 160,
+			"y": 550,
+			"url": "https://betech-kavin.oss-cn-hangzhou.aliyuncs.com/ppt/test2/stickerpage/retakebtn.png?v=1557848325791"
+		},
+		{
+			"name": "c_btn_back_active",
+			"x": 160,
+			"y": 550,
+			"url": "https://betech-kavin.oss-cn-hangzhou.aliyuncs.com/ppt/test2/stickerpage/retakebtn.png?v=1557848325791"
+		},
+		{
+			"name": "c_btn_gl_normal",
+			"x": 420,
+			"y": 450,
+			"url": "https://betech-kavin.oss-cn-hangzhou.aliyuncs.com/ppt/test2/stickerpage/leftbtn.png?v=1557848325791"
+		},
+		{
+			"name": "c_btn_gl_active",
+			"x": 420,
+			"y": 450,
+			"url": "https://betech-kavin.oss-cn-hangzhou.aliyuncs.com/ppt/test2/stickerpage/leftbtn.png?v=1557848325791"
+		},
+		{
+			"name": "c_btn_gr_normal",
+			"x": 1600,
+			"y": 450,
+			"url": "https://betech-kavin.oss-cn-hangzhou.aliyuncs.com/ppt/test2/stickerpage/rightbtn.png?v=1557848325791"
+		},
+		{
+			"name": "c_btn_gr_active",
+			"x": 1600,
+			"y": 450,
+			"url": "https://betech-kavin.oss-cn-hangzhou.aliyuncs.com/ppt/test2/stickerpage/rightbtn.png?v=1557848325791"
+		},
+		{
+			"name": "b_area_result",
+			"x": 610,
+			"y": 70,
+			"width": 1000,
+			"height": 750
+		},
+		{
+			"name": "c_url_sbg",
+			"url": "https://betech-kavin.oss-cn-hangzhou.aliyuncs.com/ppt/test2/stickerpage/circle.png"
+		},
+		{
+			"name": "c_url_sdefault",
+			"url": "https://betech-kavin.oss-cn-hangzhou.aliyuncs.com/ppt/test2/stickerpage/defaultbtn.png"
+		},
+		{
+			"name": "c_url_s1",
+			"url": "https://betech-kavin.oss-cn-hangzhou.aliyuncs.com/ppt/test2/stickerpage/stickerImgs/00.png"
+		},
+		{
+			"name": "c_url_s2",
+			"url": "https://betech-kavin.oss-cn-hangzhou.aliyuncs.com/ppt/test2/stickerpage/stickerImgs/01.png"
+		},
+		{
+			"name": "c_url_s3",
+			"url": "https://betech-kavin.oss-cn-hangzhou.aliyuncs.com/ppt/test2/stickerpage/stickerImgs/02.png"
+		},
+		{
+			"name": "c_url_s4",
+			"url": "https://betech-kavin.oss-cn-hangzhou.aliyuncs.com/ppt/test2/stickerpage/stickerImgs/03.png"
+		},
+		{
+			"name": "c_url_s5",
+			"url": "https://betech-kavin.oss-cn-hangzhou.aliyuncs.com/ppt/test2/stickerpage/stickerImgs/04.png"
+		},
+		{
+			"name": "c_url_s6",
+			"url": "https://betech-kavin.oss-cn-hangzhou.aliyuncs.com/ppt/test2/stickerpage/stickerImgs/05.png"
+		},
+		{
+			"name": "c_url_s7",
+			"url": "https://betech-kavin.oss-cn-hangzhou.aliyuncs.com/ppt/test2/stickerpage/stickerImgs/06.png"
+		},
+		{
+			"name": "c_url_s8",
+			"url": "https://betech-kavin.oss-cn-hangzhou.aliyuncs.com/ppt/test2/stickerpage/stickerImgs/07.png"
+		},
+		{
+			"name": "c_url_s9",
+			"url": "https://betech-kavin.oss-cn-hangzhou.aliyuncs.com/ppt/test2/stickerpage/stickerImgs/08.png"
+		},
+		{
+			"name": "c_url_s10",
+			"url": "https://betech-kavin.oss-cn-hangzhou.aliyuncs.com/ppt/test2/stickerpage/stickerImgs/09.png"
+		},
+		{
+			"name": "c_url_s11",
+			"url": "https://betech-kavin.oss-cn-hangzhou.aliyuncs.com/ppt/test2/stickerpage/stickerImgs/10.png"
+		},
+		{
+			"name": "c_url_s12",
+			"url": "https://betech-kavin.oss-cn-hangzhou.aliyuncs.com/ppt/test2/stickerpage/stickerImgs/11.png"
+		}
+	]
+}, {
+    "name": "d_p_share",
+    "d_p_share": [{
+        "name": "d_bg_photo",
+        "url": "https://betech-kavin.oss-cn-hangzhou.aliyuncs.com/ppt/test2/resultpage/jpg_background.jpg"
+    }, {
+        "name": "d_bg_gif",
+        "url": "https://betech-kavin.oss-cn-hangzhou.aliyuncs.com/ppt/test2/resultpage/gif_background.jpg"
+    }, {
+        "name": "d_btn_back_normal",
+        "x": 30,
+        "y": 300,
+        "url": "https://betech-kavin.oss-cn-hangzhou.aliyuncs.com/ppt/test2/resultpage/returnbtn.png"
+    }, {
+        "name": "d_btn_back_active",
+        "x": 30,
+        "y": 300,
+        "url": "https://betech-kavin.oss-cn-hangzhou.aliyuncs.com/ppt/test2/resultpage/returnbtn.png"
+    }, {
+        "name": "d_btn_print_normal",
+        "x": 1340,
+        "y": 731,
+        "url": "https://betech-kavin.oss-cn-hangzhou.aliyuncs.com/ppt/test2/resultpage/printbtn.png"
+    }, {
+        "name": "d_btn_print_active",
+        "x": 1340,
+        "y": 731,
+        "url": "https://betech-kavin.oss-cn-hangzhou.aliyuncs.com/ppt/test2/resultpage/printbtn.png"
+    }, {
+        "name": "d_btn_home_normal",
+        "x": 30,
+        "y": 551,
+        "url": "https://betech-kavin.oss-cn-hangzhou.aliyuncs.com/ppt/test2/resultpage/homebtn.png"
+    }, {
+        "name": "d_btn_home_active",
+        "x": 30,
+        "y": 551,
+        "url": "https://betech-kavin.oss-cn-hangzhou.aliyuncs.com/ppt/test2/resultpage/homebtn.png"
+    }, {
+        "name": "d_area_result",
+        "x": 310,
+        "y": 165,
+        "width": 1000,
+        "height": 750
+    }, {
+        "name": "d_area_qrcode",
+        "x": 1456,
+        "y": 453,
+        "width": 226,
+        "height": 226
+    }]
+}]

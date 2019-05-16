@@ -125,7 +125,7 @@ public class UserModel
     /// </summary>
     /// <returns></returns>
     public Texture2D[] GetGIFTex()
-    {
+    {   
         return GifTex;
     }
 

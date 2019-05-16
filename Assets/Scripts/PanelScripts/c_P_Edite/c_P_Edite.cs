@@ -90,8 +90,8 @@ public partial class c_P_Edite : UIBase
     {
         RegisterInterObjectPointUp(trans_c_btn_back, (x) => UserModel.Ins.CurrentState = State.Shoot);
         RegisterInterObjectPointUp(trans_c_btn_next, SaveFXTexAndCheck2Share);
-        RegisterInterObjectPointUp(trans_c_btn_right, ChangeGifTexAdd);
-        RegisterInterObjectPointUp(trans_c_btn_left, ChangeGifTexMinus);
+        RegisterInterObjectPointUp(trans_c_btn_gr, ChangeGifTexAdd);
+        RegisterInterObjectPointUp(trans_c_btn_gl, ChangeGifTexMinus);
 
         int iconCounts = trans_c_icon_group.childCount;
         for (int i = 1; i < iconCounts; i++)
@@ -125,11 +125,11 @@ public partial class c_P_Edite : UIBase
         }
         if (gifIndex == 0)
         {
-            trans_c_btn_left.GetComponent<Image>().gameObject.SetActive(false);
+            trans_c_btn_gl.GetComponent<Image>().gameObject.SetActive(false);
         }
         else if (gifIndex == 1)
         {
-            trans_c_btn_right.GetComponent<Image>().gameObject.SetActive(true);
+            trans_c_btn_gr.GetComponent<Image>().gameObject.SetActive(true);
         }
     }
     private void ChangeGifTexAdd(PointerEventData eventData)
@@ -147,11 +147,11 @@ public partial class c_P_Edite : UIBase
         }
         if (gifIndex == 2)
         {
-            trans_c_btn_right.GetComponent<Image>().gameObject.SetActive(false);
+            trans_c_btn_gr.GetComponent<Image>().gameObject.SetActive(false);
         }
         else if (gifIndex == 1)
         {
-            trans_c_btn_left.GetComponent<Image>().gameObject.SetActive(true);
+            trans_c_btn_gl.GetComponent<Image>().gameObject.SetActive(true);
         }
     }
 
@@ -161,6 +161,7 @@ public partial class c_P_Edite : UIBase
         {
             Directory.CreateDirectory(url);
         }
+        //te = CameraManager.Instan().AddOutLine(te, 10, Color.white);
         File.WriteAllBytes(url + "/" + gifIndex + ".png", te.EncodeToPNG());
         UserModel.Ins.StoreGIFTex(te, gifIndex);
         gifIndex--;
@@ -172,6 +173,7 @@ public partial class c_P_Edite : UIBase
         {
             Directory.CreateDirectory(url);
         }
+        //te = CameraManager.Instan().AddOutLine(te, 10, Color.white);
         File.WriteAllBytes(url  + gifIndex + ".png", te.EncodeToPNG());
         UserModel.Ins.StoreGIFTex(te, gifIndex);
         gifIndex++;
@@ -227,7 +229,6 @@ public partial class c_P_Edite : UIBase
                 {
                     ict.isControl = false;
                 }
-                
             } 
         }
 
@@ -239,7 +240,6 @@ public partial class c_P_Edite : UIBase
         {
             StartCoroutine(CaptureFXTexture(EndEventGif));
         }
-        
     }
     /// <summary>
     /// 最后切换-JPG
@@ -253,6 +253,7 @@ public partial class c_P_Edite : UIBase
         {
             Directory.CreateDirectory(arg1);
         }
+        arg2 = CameraManager.Instan().AddOutLine(arg2, 10, Color.white);
         File.WriteAllBytes(arg1 + jpgFileName, arg2.EncodeToPNG());
         UserModel.Ins.StoreFXJPGTex(arg2);
         UserModel.Ins.StoreLocalPath(arg1 + jpgFileName);
@@ -264,25 +265,97 @@ public partial class c_P_Edite : UIBase
     /// <param name="arg1"></param>
     /// <param name="arg2"></param>
     private void EndEventGif(string arg1, Texture2D arg2)
-    {
-        UserModel.Ins.StoreFXJPGTex(arg2);
+    {  
         if (!File.Exists(arg1))
         {
             Directory.CreateDirectory(arg1);
         }
+        //arg2 = CameraManager.Instan().AddOutLine(arg2, 10, Color.white);
         File.WriteAllBytes(arg1 + gifIndex+".png", arg2.EncodeToPNG());
         UserModel.Ins.StoreGIFTex(arg2, gifIndex);
+        Texture2D[] gifComTex = UserModel.Ins.GetGIFTex();
+        for (int i = 0; i < gifComTex.Length; i++)
+        {
+            if (gifComTex[i] == null)
+            {
+                Debug.Log("为空" + i);
+                Texture2D temp = preTex[i];
+                UserModel.Ins.StoreGIFTex(temp, i);
+                //temp = CameraManager.Instan().AddOutLine(temp, 10, Color.white);
+                File.WriteAllBytes(arg1 + i + ".png", temp.EncodeToPNG());
+            }
+        }
 
         //GifMaker
         if (!File.Exists(Application.streamingAssetsPath + "/gif/"))
         {
             Directory.CreateDirectory(Application.streamingAssetsPath + "/gif/");
         }
+        AddWhiteOutLine();
+
+        StartCoroutine(Wait4Make());
+
         GameObject.Find("GifMaker")?.GetComponent<GIFFactory>()?.MakeGif(() =>
         {
+            
+            isComp = true;
+
+        });
+    }
+
+    private void Update()
+    {
+        if (isComp)
+        {
+            isComp = false;
+            StopAllCoroutines();
+            tt.gameObject.SetActive(false);
             UserModel.Ins.StoreLocalPath(Application.streamingAssetsPath + "/gif/yb.gif");
             UserModel.Ins.CurrentState = State.Share;
-        });
+        }
+    }
+
+    private bool isComp;
+    public Text tt;
+    private IEnumerator Wait4Make()
+    {
+        tt.gameObject.SetActive(true);
+        tt.text = "请等待";
+        int i = 0;
+        while (true)
+        {
+            if (i < 3)
+            {
+                tt.text += ".";
+            }
+            else
+            {
+                i = 0;
+                tt.text = "请等待";
+            }
+            i++;
+            yield return new WaitForSeconds(0.5f);
+        }
+        
+    }
+
+    private void AddWhiteOutLine()
+    {
+        Texture2D[] finalTex = UserModel.Ins.GetGIFTex();
+        CameraManager cm = CameraManager.Instan();
+        UserModel user = UserModel.Ins;
+        Texture2D temp;
+        for(int i = 0; i < 3; i++)
+        {   
+            if (finalTex[i].width!=880)
+            {
+                temp = CameraManager.Instan().ScaleTexture(finalTex[i], 880, 660);
+                user.StoreGIFTex(temp, i);
+            }
+            temp=cm.AddOutLine(finalTex[i], 10, Color.white);
+            File.WriteAllBytes(Application.streamingAssetsPath + "/png/" + i + ".png",temp.EncodeToPNG());
+            user.StoreGIFTex(temp, i);
+        }
     }
 
     private IEnumerator CaptureFXTexture(Action<string, Texture2D> endEvent)
@@ -359,14 +432,16 @@ public partial class c_P_Edite : UIBase
         shotMode = UserModel.Ins.GetShotMode();
         if (shotMode == ShotMode.Gif)
         {
+            trans_c_GifSwitch.gameObject.SetActive(true);
             preTex = UserModel.Ins.GetPreGifTex();
             trans_c_TexRaw.GetComponent<RawImage>().texture = preTex[0];
-            trans_c_btn_left.gameObject.SetActive(false);
+            trans_c_btn_gl.gameObject.SetActive(false);
             gifIndex = 0;
         }
         else
         {
             trans_c_TexRaw.GetComponent<RawImage>().texture = UserModel.Ins.GainCamRaw();
+            trans_c_GifSwitch.gameObject.SetActive(false);
         }
     }
 

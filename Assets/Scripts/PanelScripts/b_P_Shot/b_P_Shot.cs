@@ -94,11 +94,12 @@ public partial class b_P_Shot : UIBase
         //GameObject.Find("GifMaker")?.GetComponent<GIFFactory>()?.MakeGif(()=>
         //{
 
-        //    ShotUIDis(true);
+        //    
         //    UserModel.Ins.StoreLocalPath(Application.streamingAssetsPath + "/gif/yb.gif");
         //    UserModel.Ins.CurrentState = State.Edite;
 
         //});
+        ShotUIDis(true);
         UserModel.Ins.CurrentState = State.Edite;
         MessageCenter.GetMessage(PanelAssets_c_P_Edite.c_P_Edite.ToString(), new MessageAddress("ResetIcon", null));
     }
@@ -130,7 +131,7 @@ public partial class b_P_Shot : UIBase
         trans_b_tip.gameObject.SetActive(isOnDis);
         //控制按钮消失
         trans_b_btn_shot.gameObject.SetActive(isOnDis);
-        trans_b_mask.gameObject.SetActive(isOnDis);
+        trans_b_hint_look.gameObject.SetActive(isOnDis);
         trans_b_btn_close.gameObject.SetActive(isOnDis);
         trans_b_grayMask.gameObject.SetActive(isOnDis);
     }
@@ -182,7 +183,7 @@ public partial class b_P_Shot : UIBase
     /// <returns></returns>
     private IEnumerator Capture(int index, Action<Texture2D, int> captureSucceed)
     {
-        RectTransform rt = trans_b_mask.GetComponent<RectTransform>();
+        RectTransform rt = trans_b_hint_look.GetComponent<RectTransform>();
         yield return new WaitForEndOfFrame();
         Texture2D te = new Texture2D((int)rt.sizeDelta.x, (int)rt.sizeDelta.y,TextureFormat.ARGB32,false);
         te.ReadPixels(new Rect(240, 0, te.width, te.height), 0, 0);
@@ -197,7 +198,7 @@ public partial class b_P_Shot : UIBase
     /// <returns></returns>
     private IEnumerator Capture(Action<Texture2D> captureSucceed)
     {
-        RectTransform rt = trans_b_mask.GetComponent<RectTransform>();
+        RectTransform rt = trans_b_hint_look.GetComponent<RectTransform>();
         yield return new WaitForEndOfFrame();
         Texture2D te = new Texture2D((int)rt.sizeDelta.x, (int)rt.sizeDelta.y);
         te.ReadPixels(new Rect(240, 0, te.width, te.height), 0, 0);
@@ -289,13 +290,13 @@ public partial class b_P_Shot : UIBase
         trans_b_tip.gameObject.SetActive(true);
         if (mode == ShotMode.Gif)
         {
-            trans_b_tip_gif.gameObject.SetActive(true);
-            trans_b_tip_photo.gameObject.SetActive(false);
+            trans_b_hint_gif.gameObject.SetActive(true);
+            trans_b_hint_photo.gameObject.SetActive(false);
         }
         else
         {
-            trans_b_tip_gif.gameObject.SetActive(false);
-            trans_b_tip_photo.gameObject.SetActive(true);
+            trans_b_hint_gif.gameObject.SetActive(false);
+            trans_b_hint_photo.gameObject.SetActive(true);
         }
     }
 
