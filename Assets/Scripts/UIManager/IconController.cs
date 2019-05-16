@@ -63,6 +63,7 @@ public class IconController : MonoBehaviour
     private void ActiveTool(PointerEventData eventData)
     {
         isControl = true;
+        transform.SetAsLastSibling();
     }
 
     private void closeEvent(PointerEventData eventData)
@@ -214,6 +215,14 @@ public class IconController : MonoBehaviour
                 moved = true;
             }
 
+            #endregion
+
+
+            #region 判断是否在最前端
+            if(transform.parent.GetChild(transform.parent.childCount-1)!=transform)
+            {
+                isControl = false;
+            }
             #endregion
         }
         else

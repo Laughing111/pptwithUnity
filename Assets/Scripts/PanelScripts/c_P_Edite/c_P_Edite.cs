@@ -197,22 +197,25 @@ public partial class c_P_Edite : UIBase
         Transform goTrans = Instantiate(go).transform;
         goTrans.name = addPrefabName;
         int oldCount;
+        Transform parent;
         if (shotMode == ShotMode.Jpg)
-        {
-            oldCount = trans_c_icon_jpg.childCount;
-            goTrans.SetParent(trans_c_icon_jpg, false);
+        {   
+            parent = trans_c_icon_jpg;
+            oldCount = parent.childCount;
         }
         else
-        {
-            oldCount = trans_c_icon_gif.GetChild(gifIndex).childCount;
-            goTrans.SetParent(trans_c_icon_gif.GetChild(gifIndex), false);
+        {   
+            parent = trans_c_icon_gif.GetChild(gifIndex);
+            oldCount = parent.childCount;
         }
+        goTrans.SetParent(parent, false);
         goTrans.GetChild(0).GetComponent<RawImage>().texture = eventData.pointerPress.transform.GetChild(0).GetComponent<RawImage>().texture;
+        goTrans.GetChild(0).GetComponent<RawImage>().SetNativeSize();
         if(oldCount>0)
         {
             goTrans.GetComponent<RectTransform>().anchoredPosition3D = goTrans.parent.GetChild(oldCount - 1).GetComponent<RectTransform>().anchoredPosition3D + new Vector3(30, 0, 0);
+            
         }
-        
     }
     private void SaveFXTexAndCheck2Share(PointerEventData eventData)
     {
@@ -373,7 +376,6 @@ public partial class c_P_Edite : UIBase
         int rectY = (int)(Screen.height * 0.5 - (te.height * 0.5 - rt.anchoredPosition3D.y));
         te.ReadPixels(new Rect(rectX, rectY, te.width, te.height), 0, 0);
         te.Apply();
-
         endEvent(Application.streamingAssetsPath + "/png/", te);
     }
 
@@ -381,14 +383,6 @@ public partial class c_P_Edite : UIBase
     public override void OnActive()
     {   
         CheckModeAndUpdateTex();
-        //if (UserModel.Ins.GainCamRaw() == null)
-        //{
-        //    dbug.text = "没有图像";
-        //}
-        //else
-        //{
-        //    dbug.text = "有图像";
-        //}
         base.OnActive();
     }
 
