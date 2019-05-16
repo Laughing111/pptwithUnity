@@ -57,9 +57,7 @@ public class UIManager
                     default:
                         break;
                 }
-            }
-            
-
+            } 
             switch (targetState)
             {
                 case State.Index:

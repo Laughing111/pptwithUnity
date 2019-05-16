@@ -28,10 +28,14 @@ public partial class c_P_Edite : UIBase
     private string gifFileName = "yb.gif";
     public int iconCounts;
     public float countSpace = 194.0f;
-
+    private Texture2D iconBGTex;
+    public bool offLine;
     public void Awake()
     {
-        CheckAndCreateIconBtn();
+        //if(offLine)
+        //{
+        //    CheckAndCreateIconBtn();
+        //} 
         PanelInit();
         
     }
@@ -56,6 +60,7 @@ public partial class c_P_Edite : UIBase
     private void UpdateIcons(MessageAddress messageAddress)
     {
         CheckAndCreateIconBtn(messageAddress.Parameters as Texture2D[]);
+        RegisterIcon();
     }
 
     /// <summary>
@@ -92,7 +97,11 @@ public partial class c_P_Edite : UIBase
         RegisterInterObjectPointUp(trans_c_btn_next, SaveFXTexAndCheck2Share);
         RegisterInterObjectPointUp(trans_c_btn_gr, ChangeGifTexAdd);
         RegisterInterObjectPointUp(trans_c_btn_gl, ChangeGifTexMinus);
+        RegisterIcon();   
+    }
 
+    private void RegisterIcon()
+    {
         int iconCounts = trans_c_icon_group.childCount;
         for (int i = 1; i < iconCounts; i++)
         {
@@ -293,13 +302,11 @@ public partial class c_P_Edite : UIBase
         }
         AddWhiteOutLine();
 
-        StartCoroutine(Wait4Make());
+        //StartCoroutine(Wait4Make());
 
         GameObject.Find("GifMaker")?.GetComponent<GIFFactory>()?.MakeGif(() =>
-        {
-            
+        {   
             isComp = true;
-
         });
     }
 
@@ -336,7 +343,6 @@ public partial class c_P_Edite : UIBase
             i++;
             yield return new WaitForSeconds(0.5f);
         }
-        
     }
 
     private void AddWhiteOutLine()
@@ -408,24 +414,28 @@ public partial class c_P_Edite : UIBase
     public void CheckAndCreateIconBtn(Texture2D[] te)
     {
         int iCount = te.Length;
-        if (iCount > 0)
+        if (iCount >=2)
         {
-            for (int i = 0; i < iconCounts; i++)
+            iconBGTex = te[0];
+            trans_c_url_sdefault.GetComponent<RawImage>().texture = te[1];
+            for (int i = 2; i < iCount; i++)
             {
                 GameObject go = RDResManager.LoadWithCache<GameObject>("icon_prefabs/c_icon_selectIns");
                 GameObject insGo = Instantiate(go);
-                insGo.name = "c_icon_selectIns" + (i + 1).ToString();
+                insGo.name = "c_icon_selectIns" + (i-1).ToString();
                 if (trans_c_icon_group == null)
                 {
                     trans_c_icon_group = transform.SearchforChild(PanelAssets_c_P_Edite.c_icon_group.ToString());
                 }
                 insGo.transform.SetParent(trans_c_icon_group, false);
-                insGo.GetComponent<RectTransform>().anchoredPosition3D = new Vector3(-827.0f + countSpace * (i + 1), -400, 0);
+                insGo.GetComponent<RectTransform>().anchoredPosition3D = new Vector3(-827.0f + countSpace * (i-1), -400, 0);
+                insGo.GetComponent<RawImage>().texture = iconBGTex;
+                insGo.GetComponent<RawImage>().SetNativeSize();
                 insGo.transform.GetChild(0).GetComponent<RawImage>().texture = te[i];
+                insGo.transform.GetChild(0).GetComponent<RawImage>().SetNativeSize();
             }                                                                     
         }
     }
-
 
     private void CheckModeAndUpdateTex()
     {

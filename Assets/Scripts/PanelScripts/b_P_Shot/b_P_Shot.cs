@@ -70,12 +70,12 @@ public partial class b_P_Shot : UIBase
         {
             StartCoroutine(CountDown(trans_b_tip_countdown));
         }
-        catch(Exception e)
+        catch (Exception e)
         {
             dbug.text = e.ToString();
             Debug.Log(e.ToString());
         }
-        
+
     }
 
     private void ShotInGIF()
@@ -87,18 +87,15 @@ public partial class b_P_Shot : UIBase
 
     private void GifShotEnd()
     {
-        //if (!File.Exists(Application.streamingAssetsPath + "/gif/"))
-        //{
-        //    Directory.CreateDirectory(Application.streamingAssetsPath + "/gif/");
-        //}
-        //GameObject.Find("GifMaker")?.GetComponent<GIFFactory>()?.MakeGif(()=>
-        //{
+        ShotUIDis(true);
+        UserModel.Ins.CurrentState = State.Edite;
+        MessageCenter.GetMessage(PanelAssets_c_P_Edite.c_P_Edite.ToString(), new MessageAddress("ResetIcon", null));
+    }
 
-        //    
-        //    UserModel.Ins.StoreLocalPath(Application.streamingAssetsPath + "/gif/yb.gif");
-        //    UserModel.Ins.CurrentState = State.Edite;
-
-        //});
+    private void JpgShotEnd(Texture2D te)
+    {   
+        UserModel.Ins.StoreCamRaw(te);
+        CameraManager.Instan().CameraResume();
         ShotUIDis(true);
         UserModel.Ins.CurrentState = State.Edite;
         MessageCenter.GetMessage(PanelAssets_c_P_Edite.c_P_Edite.ToString(), new MessageAddress("ResetIcon", null));
@@ -143,17 +140,11 @@ public partial class b_P_Shot : UIBase
     private IEnumerator PauseCamAndSave2ModelJpg()
     {
         CameraManager.Instan().CameraPause();
+        //yield return null;
         //截屏处理 截屏后存储
-        yield return Capture((Texture2D te) => 
-        {   
-            UserModel.Ins.StoreCamRaw(te);
-            CameraManager.Instan().CameraResume();
-            ShotUIDis(true);
-            UserModel.Ins.CurrentState = State.Edite;
-            MessageCenter.GetMessage(PanelAssets_c_P_Edite.c_P_Edite.ToString(), new MessageAddress("ResetIcon", null));
-        });
+        yield return Capture();
     }
-    
+
     /// <summary>
     /// 存储方法，GIF模式
     /// </summary>
@@ -161,50 +152,43 @@ public partial class b_P_Shot : UIBase
     /// <returns></returns>
     private IEnumerator PauseCamAndSave2ModelGif(int index)
     {
-
         CameraManager.Instan().CameraPause();
         //截屏处理 截屏后存储
-        yield return (Capture(index,(Texture2D te, int i) => {
-            UserModel.Ins.StoreFXJPGTex(te, i);
-            //if (!File.Exists(Application.streamingAssetsPath + "/png/"))
-            //{
-            //    Directory.CreateDirectory(Application.streamingAssetsPath + "/png/");
-            //}
-            //File.WriteAllBytes(Application.streamingAssetsPath + "/png/" + i + ".png", te.EncodeToPNG()); 
-            CameraManager.Instan().CameraResume();
-        }));
+        yield return Capture(index);
     }
 
+   
     /// <summary>
     /// 实际存储方法，存gif
     /// </summary>
     /// <param name="index">gif编号</param>
     /// <param name="captureSucceed">存储完执行</param>
     /// <returns></returns>
-    private IEnumerator Capture(int index, Action<Texture2D, int> captureSucceed)
+    private IEnumerator Capture(int index)
     {
-        RectTransform rt = trans_b_hint_look.GetComponent<RectTransform>();
+        RectTransform rt = trans_b_grayMask.GetComponent<RectTransform>();
         yield return new WaitForEndOfFrame();
-        Texture2D te = new Texture2D((int)rt.sizeDelta.x, (int)rt.sizeDelta.y,TextureFormat.ARGB32,false);
+        Texture2D te = new Texture2D((int)rt.sizeDelta.x, (int)rt.sizeDelta.y, TextureFormat.ARGB32, false);
         te.ReadPixels(new Rect(240, 0, te.width, te.height), 0, 0);
         te.Apply();
         //yield return new WaitForSeconds(0.1f);
-        captureSucceed?.Invoke(te, index);
+        UserModel.Ins.StoreFXJPGTex(te, index);
+        CameraManager.Instan().CameraResume();
     }
     /// <summary>
     /// 实际存储方法，存储jpg
     /// </summary>
     /// <param name="captureSucceed">存储完执行</param>
     /// <returns></returns>
-    private IEnumerator Capture(Action<Texture2D> captureSucceed)
+    private IEnumerator Capture()
     {
-        RectTransform rt = trans_b_hint_look.GetComponent<RectTransform>();
+        RectTransform rt = trans_b_grayMask.GetComponent<RectTransform>();
         yield return new WaitForEndOfFrame();
-        Texture2D te = new Texture2D((int)rt.sizeDelta.x, (int)rt.sizeDelta.y);
+        Texture2D te = new Texture2D((int)rt.sizeDelta.x, (int)rt.sizeDelta.y, TextureFormat.ARGB32, false);
         te.ReadPixels(new Rect(240, 0, te.width, te.height), 0, 0);
         te.Apply();
         //yield return new WaitForSeconds(0.1f);
-        captureSucceed?.Invoke(te);
+        JpgShotEnd(te);
     }
 
     /// <summary>
@@ -215,7 +199,6 @@ public partial class b_P_Shot : UIBase
     /// <returns></returns>
     private IEnumerator CountDown(Transform btnCount)
     {
-
         for (int i = 0; i < 3; i++)
         {
             btnCount.GetChild(i).gameObject.SetActive(false);
@@ -303,6 +286,7 @@ public partial class b_P_Shot : UIBase
     public override void OnInActive()
     {
         CameraManager.Instan().StopCamera();
+        StopAllCoroutines();
         base.OnInActive();
     }
 }

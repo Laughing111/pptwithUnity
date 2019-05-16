@@ -104,6 +104,13 @@ public class CameraManager {
         return result;
     }
 
+    /// <summary>
+    /// 加白边
+    /// </summary>
+    /// <param name="source">源图片</param>
+    /// <param name="outLineWidth">边框边距值</param>
+    /// <param name="color">边框颜色</param>
+    /// <returns></returns>
     public Texture2D AddOutLine(Texture2D source,int outLineWidth,Color color)
     {
         Texture2D result = new Texture2D(source.width + outLineWidth * 2, source.height + outLineWidth * 2,source.format,false);

@@ -32,6 +32,7 @@ public partial class e_Setting : UIBase {
         Search4Expeted();
         RegisterInterObjectPointUp(trans_e_btn_Add, DownLoadUI);
         AddMessage2LocalBox("PopInput", (x) => trans_e_TipGroup.gameObject.SetActive(true));
+        AddMessage2LocalBox("ChangeState", (x) => { trans_e_tip.GetComponent<Text>().text = "初始化完成!"; UserModel.Ins.CurrentState = State.Index;});
         base.PanelInit();
     }
 
@@ -52,6 +53,8 @@ public partial class e_Setting : UIBase {
     }
     public override void OnInActive()
     {
+        UIDownLoadManager.Ins.StopDownLoadManager();
+        StopAllCoroutines();
         base.OnInActive();
     }
 }

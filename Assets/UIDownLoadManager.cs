@@ -23,6 +23,9 @@ public class UIDownLoadManager : MonoBehaviour {
     private string jsonText;
     private static UIDownLoadManager loadManager;
 
+    public List<string> iconUrlList;
+    public Texture2D[] iconTex; 
+
     private Action<string> AfterTokenAndUpdate;
     [HideInInspector]
     public Text debugText;
@@ -64,6 +67,14 @@ public class UIDownLoadManager : MonoBehaviour {
     /// 面板名字+实际材质
     /// </summary>
     private Dictionary<string, Texture2D> panelTexturePairs;
+   
+    /// <summary>
+    /// 停止下载
+    /// </summary>
+    public void StopDownLoadManager()
+    {
+        StopAllCoroutines();
+    }
 
     private void ReadJson(string json)
     {
@@ -71,6 +82,10 @@ public class UIDownLoadManager : MonoBehaviour {
         if (panelAssetsPairs == null)
         {
             panelAssetsPairs = new Dictionary<string,string>();
+        }
+        if (iconUrlList == null)
+        {
+            iconUrlList = new List<string>();
         }
         for (int i = 0; i < data.Count; i++)
         {   
@@ -83,7 +98,20 @@ public class UIDownLoadManager : MonoBehaviour {
                 for (int j = 0; j < assetsCount; j++)
                 {
                     string asstsName = data[i][panelName][j]["name"].ToString();
-                    panelAssetsPairs.Add(data[i][panelName][j]["name"].ToString(), data[i][panelName][j]["url"].ToString());
+                    //检查是否icon
+                    if(asstsName.Split('_')[1]=="url")
+                    {
+                        //说明是icon
+                        //为iconUrl添加
+                        iconUrlList.Add(data[i][panelName][j]["url"].ToString());
+                    }
+                    else
+                    {
+                        if (data[i][panelName][j]["url"]!= null)
+                        {
+                            panelAssetsPairs.Add(data[i][panelName][j]["name"].ToString(), data[i][panelName][j]["url"].ToString());
+                        }
+                    } 
                     //todo位置参数
                 }
             }
@@ -92,7 +120,7 @@ public class UIDownLoadManager : MonoBehaviour {
 
             }
         }
-
+        Debug.Log(iconUrlList.Count);
         CheckUrlAndDownLoad();
     }
 
@@ -102,13 +130,11 @@ public class UIDownLoadManager : MonoBehaviour {
         if (panelTexturePairs == null)
         {
             panelTexturePairs = new Dictionary<string, Texture2D>();
-        }
-        
+        } 
         foreach(var e in panelAssetsPairs)
         {
             panelTexturePairs.Add(e.Key, null);
-        }
-
+        } 
         StartCoroutine(GetTexture(panelTexturePairs, panelAssetsPairs, UpdateTextureWithName));
     }
 
@@ -174,6 +200,9 @@ public class UIDownLoadManager : MonoBehaviour {
             }
         }
 
+        //加载icon
+        MessageCenter.GetMessage(PanelAssets_c_P_Edite.c_P_Edite.ToString(), new MessageAddress("UpdateIcon", iconTex));
+
         if (debugText != null)
         {
             debugText.text = "加载成功...";
@@ -220,10 +249,33 @@ public class UIDownLoadManager : MonoBehaviour {
                     {
                         Debug.LogError(assetsName);
                     }
-                    
                 } 
             }
         }
+
+        //下载icon
+        int iconCount = iconUrlList.Count;
+        if (iconCount > 0)
+        {
+            iconTex = new Texture2D[iconCount];
+        }
+        int iconIndex = 0;
+        while (iconIndex<iconCount)
+        {   
+            string iconUrl = iconUrlList[iconIndex];
+            www = new WWW(iconUrl);
+            yield return www;
+            if (www.error != null)
+            {
+                Debug.Log(www.error + ":" + iconIndex);
+            }
+            else
+            {
+                iconTex[iconIndex] = www.texture;
+            }
+            iconIndex++;
+        }
+
         if(nameTexPair.Count>0)
         {
             updateTexture(nameTexPair, EndEvent);
@@ -232,7 +284,7 @@ public class UIDownLoadManager : MonoBehaviour {
 
     private void EndEvent()
     {
-        UserModel.Ins.CurrentState = State.Index;
+        MessageCenter.GetMessage(PanelAssets_e_Setting.e_Setting.ToString(), new MessageAddress("ChangeState", null));
     }
 
 
@@ -266,8 +318,7 @@ public class UIDownLoadManager : MonoBehaviour {
     }
 
     public void UpdateJsonAndTexture2D(string _uuid)
-    {
-        
+    {  
         StartCoroutine(GetJsonText(ReadJson));
     }
 
@@ -317,11 +368,12 @@ public class UIDownLoadManager : MonoBehaviour {
             }
             yield return null;
         }
-
+        //debugText.text = "uuid失效，请重新输入。";
+        //MessageCenter.GetMessage(PanelAssets_e_Setting.e_Setting.ToString(), new MessageAddress("PopInput", null));
         
-            debugText.text = "uuid失效，请重新输入。";
-            MessageCenter.GetMessage(PanelAssets_e_Setting.e_Setting.ToString(), new MessageAddress("PopInput", null));
-          
+        //test
+        AfterTokenAndUpdate?.Invoke(uuid);
+
     }
 
 }

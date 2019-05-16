@@ -164,7 +164,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &79725407
 RectTransform:
   m_ObjectHideFlags: 0
@@ -3066,9 +3066,10 @@ MonoBehaviour:
   ActiveTypeOnAwake: 1
   iconCounts: 8
   countSpace: 194
+  offLine: 0
   tt: {fileID: 1587109809}
   dbug: {fileID: 2097933565}
-  panelAssets: 040000000300000012000000110000000f00000008000000100000001300000015000000160000001700000018000000190000001a0000000e000000
+  panelAssets: 040000000300000012000000110000000f00000008000000100000001300000015000000160000001700000018000000190000001a0000000e00000009000000
 --- !u!1 &1078629360
 GameObject:
   m_ObjectHideFlags: 0
@@ -4180,7 +4181,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f46bf9749688ca043b9b1d6010a78432, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  panelState: 2
+  panelState: 1
 --- !u!1 &1469607671
 GameObject:
   m_ObjectHideFlags: 0
@@ -4221,6 +4222,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4f576b395244fad4aa3b5c1f498b8606, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  iconUrlList: []
+  iconTex: []
   debugText: {fileID: 0}
 --- !u!1 &1511973844
 GameObject:
@@ -4584,7 +4587,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1587109808
 RectTransform:
   m_ObjectHideFlags: 0
