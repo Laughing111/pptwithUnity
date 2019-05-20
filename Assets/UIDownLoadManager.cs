@@ -76,6 +76,11 @@ public class UIDownLoadManager : MonoBehaviour
     private Dictionary<string, Texture2D> panelTexturePairs;
 
     /// <summary>
+    /// 面板名字+位置长宽
+    /// </summary>
+    private Dictionary<string, Vector4> motionArea;
+
+    /// <summary>
     /// 停止下载
     /// </summary>
     public void StopDownLoadManager()
@@ -125,6 +130,22 @@ public class UIDownLoadManager : MonoBehaviour
                         if (data[i][panelName][j]["url"] != null)
                         {
                             panelAssetsPairs.Add(data[i][panelName][j]["name"].ToString(), data[i][panelName][j]["url"].ToString());
+                        }
+                        else   //没有url 即为画面调整参数
+                        {
+                            if (motionArea == null)
+                            {
+                                motionArea = new Dictionary<string, Vector4>();
+                            }
+                            if (!motionArea.ContainsKey(asstsName))
+                            {
+                                float Ux,Uy,Uw,Uh;
+                                float.TryParse(data[i][panelName][j]["x"].ToString(),out Ux);
+                                float.TryParse(data[i][panelName][j]["y"].ToString(), out Uy);
+                                float.TryParse(data[i][panelName][j]["width"].ToString(), out Uw);
+                                float.TryParse(data[i][panelName][j]["height"].ToString(), out Uh);
+                                motionArea.Add(asstsName, new Vector4(Ux, Uy, Uw, Uh));
+                            }
                         }
                     }
                     //todo位置参数
@@ -276,6 +297,33 @@ public class UIDownLoadManager : MonoBehaviour
                             rimg.rectTransform.anchoredPosition3D = new Vector3(panelPosPairs[astName].x - Screen.width * 0.5f + rimg.rectTransform.sizeDelta.x * 0.5f, Screen.height * 0.5f - panelPosPairs[astName].y - rimg.rectTransform.sizeDelta.y * 0.5f, 0);
                         }
                     }
+                }
+            }
+
+            //调整画面位置和大小
+            int areaCount = motionArea.Count;
+            foreach(var kev in motionArea)
+            {
+                Transform t=null;
+                switch (kev.Key)
+                {
+                    case "b_area_lv":
+                        t = uiRoot.SearchforChild(PanelAssets_b_P_Shot.b_Mask.ToString());
+                        break;
+                    case "b_area_result":
+                        t = uiRoot.SearchforChild(PanelAssets_c_P_Edite.c_mask_picture.ToString());
+                        break;
+                    case "d_area_result":
+                        t = uiRoot.SearchforChild(PanelAssets_d_P_Share.d_picture.ToString());
+                        break;
+                    case "d_area_qrcode":
+                        t = uiRoot.SearchforChild(PanelAssets_d_P_Share.d_img_qrcode.ToString());
+                        break;
+                }
+                if (t != null)
+                {
+                    t.GetComponent<RectTransform>().sizeDelta = new Vector2(kev.Value.z, kev.Value.w);
+                    t.GetComponent<RectTransform>().anchoredPosition3D = new Vector3(kev.Value.x - Screen.width * 0.5f + t.GetComponent<RectTransform>().sizeDelta.x * 0.5f, Screen.height * 0.5f - kev.Value.y - t.GetComponent<RectTransform>().sizeDelta.y * 0.5f, 0);
                 }
             }
         }
