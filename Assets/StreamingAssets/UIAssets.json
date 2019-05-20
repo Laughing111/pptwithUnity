@@ -50,22 +50,22 @@
         "y": "816",
         "url": "https://betech-kavin.oss-cn-hangzhou.aliyuncs.com/ppt/test2/beginpage/nextbtn.png"
     }, {
-        "name": "a_btn_gif_normal_c",
+        "name": "a_btn_gif_normal",
         "x": "1650",
         "y": "190",
         "url": "https://betech-kavin.oss-cn-hangzhou.aliyuncs.com/ppt/test2/beginpage/gificon2.png"
     }, {
-        "name": "a_btn_gif_active_c",
+        "name": "a_btn_gif_active",
         "x": "1650",
         "y": "190",
         "url": "https://betech-kavin.oss-cn-hangzhou.aliyuncs.com/ppt/test2/beginpage/gificon1.png"
     }, {
-        "name": "a_btn_photo_normal_c",
+        "name": "a_btn_photo_normal",
         "x": "1485",
         "y": "82",
         "url": "https://betech-kavin.oss-cn-hangzhou.aliyuncs.com/ppt/test2/beginpage/jpgicon2.png"
     }, {
-        "name": "a_btn_photo_active_c",
+        "name": "a_btn_photo_active",
         "x": "1485",
         "y": "82",
         "url": "https://betech-kavin.oss-cn-hangzhou.aliyuncs.com/ppt/test2/beginpage/jpgicon1.png"

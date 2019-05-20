@@ -17,8 +17,8 @@ public partial class a_P_Index : UIBase {
         Search4Expeted();
         RegisterInterObjectPointUp(trans_a_btn_left, ChangeMode);
         RegisterInterObjectPointUp(trans_a_btn_right, ChangeMode);
-        RegisterInterObjectPointUp(trans_a_btn_gif_normal_c, ChangeMode);
-        RegisterInterObjectPointUp(trans_a_btn_photo_normal_c, ChangeMode);
+        RegisterInterObjectPointUp(trans_a_btn_gif_normal, ChangeMode);
+        RegisterInterObjectPointUp(trans_a_btn_photo_normal, ChangeMode);
         RegisterInterObjectPointUp(trans_a_btn_next, Go2Shot);
         base.PanelInit();
     }

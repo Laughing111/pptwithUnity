@@ -118,9 +118,9 @@ public class CameraManager {
         {
             for(int j = 0; j <result.width; j++)
             {
-                if (i >= outLineWidth&&j>=outLineWidth&&i<=result.height-outLineWidth&&j<=result.width-outLineWidth)
+                if (i >=outLineWidth&&j>=outLineWidth&&i<result.height-outLineWidth&&j<result.width-outLineWidth)
                 {
-                    Color c= source.GetPixel(j,i);
+                    Color c= source.GetPixel(j- outLineWidth, i- outLineWidth);
                     result.SetPixel(j, i, c);
                 }
                 else

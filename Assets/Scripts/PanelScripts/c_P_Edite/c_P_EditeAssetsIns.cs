@@ -18,6 +18,7 @@ public partial class c_P_Edite : UIBase{
     private Transform trans_c_btn_gr;
     private Transform trans_c_bg_Rect;
     private Transform trans_c_url_sdefault;
+    private Transform trans_c_gificon_0;
     partial void Search4Expeted()
     {
         trans_c_btn_back=transform.SearchforChild("c_btn_back");
@@ -36,5 +37,6 @@ public partial class c_P_Edite : UIBase{
         trans_c_btn_gr=transform.SearchforChild("c_btn_gr");
         trans_c_bg_Rect=transform.SearchforChild("c_bg_Rect");
         trans_c_url_sdefault=transform.SearchforChild("c_url_sdefault");
+        trans_c_gificon_0=transform.SearchforChild("c_gificon_0");
     }
 }

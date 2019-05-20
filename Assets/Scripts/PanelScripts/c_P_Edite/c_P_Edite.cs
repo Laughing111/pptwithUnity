@@ -30,6 +30,8 @@ public partial class c_P_Edite : UIBase
     public float countSpace = 194.0f;
     private Texture2D iconBGTex;
     public bool offLine;
+    private RawImage[] gifTexRaw;
+    private RenderTexture[] gifRT;
     public void Awake()
     {
         //if(offLine)
@@ -111,7 +113,7 @@ public partial class c_P_Edite : UIBase
 
     private void DisPlayGif()
     {
-        trans_c_TexRaw.GetComponent<RawImage>().texture = preTex[gifIndex];
+        trans_c_TexRaw.GetComponent<RawImage>().texture = gifRT[gifIndex];
         for (int i = 0; i < 3; i++)
         {
             trans_c_icon_gif.GetChild(i).gameObject.SetActive(false);
@@ -130,7 +132,8 @@ public partial class c_P_Edite : UIBase
                 //Debug.Log("重置");
                 iconT.GetChild(i).GetComponent<IconController>().isControl = false;
             }
-            StartCoroutine(CaptureFXTexture(captureGifEndMinus));
+            gifIndex--;
+            DisPlayGif();
         }
         if (gifIndex == 0)
         {
@@ -152,7 +155,9 @@ public partial class c_P_Edite : UIBase
                 //Debug.Log("重置");
                 iconT.GetChild(i).GetComponent<IconController>().isControl = false;
             }
-            StartCoroutine(CaptureFXTexture(captureGifEndAdd));
+           
+            gifIndex++;
+            DisPlayGif();
         }
         if (gifIndex == 2)
         {
@@ -163,33 +168,7 @@ public partial class c_P_Edite : UIBase
             trans_c_btn_gl.GetComponent<Image>().gameObject.SetActive(true);
         }
     }
-
-    private void captureGifEndMinus(string url, Texture2D te)
-    {
-        if (!File.Exists(url))
-        {
-            Directory.CreateDirectory(url);
-        }
-        //te = CameraManager.Instan().AddOutLine(te, 10, Color.white);
-        File.WriteAllBytes(url + "/" + gifIndex + ".png", te.EncodeToPNG());
-        UserModel.Ins.StoreGIFTex(te, gifIndex);
-        gifIndex--;
-        DisPlayGif();
-    }
-    private void captureGifEndAdd(string url, Texture2D te)
-    {
-        if (!File.Exists(url))
-        {
-            Directory.CreateDirectory(url);
-        }
-        //te = CameraManager.Instan().AddOutLine(te, 10, Color.white);
-        File.WriteAllBytes(url  + gifIndex + ".png", te.EncodeToPNG());
-        UserModel.Ins.StoreGIFTex(te, gifIndex);
-        gifIndex++;
-        DisPlayGif();
-    }
-
-
+    
     private void AddIcon(PointerEventData eventData)
     {
         string addPrefabName = eventData.pointerPress.name + "i";
@@ -204,7 +183,7 @@ public partial class c_P_Edite : UIBase
             oldCount = parent.childCount;
         }
         else
-        {   
+        {
             parent = trans_c_icon_gif.GetChild(gifIndex);
             oldCount = parent.childCount;
         }
@@ -250,7 +229,13 @@ public partial class c_P_Edite : UIBase
         }
         else
         {
-            StartCoroutine(CaptureFXTexture(EndEventGif));
+            trans_c_gificon_0.SetParent(gifTexRaw[0].transform, false);
+            trans_c_gificon_0.gameObject.SetActive(true);
+            trans_c_gificon_1.SetParent(gifTexRaw[1].transform, false);
+            trans_c_gificon_1.gameObject.SetActive(true);
+            trans_c_gificon_2.SetParent(gifTexRaw[2].transform, false);
+            trans_c_gificon_2.gameObject.SetActive(true);
+            StartCoroutine(CaptureFXTextureGif(EndEventGif));
         }
     }
     /// <summary>
@@ -276,26 +261,16 @@ public partial class c_P_Edite : UIBase
     /// </summary>
     /// <param name="arg1"></param>
     /// <param name="arg2"></param>
-    private void EndEventGif(string arg1, Texture2D arg2)
+    private void EndEventGif(string arg1, Texture2D[] arg2)
     {  
         if (!File.Exists(arg1))
         {
             Directory.CreateDirectory(arg1);
         }
-        //arg2 = CameraManager.Instan().AddOutLine(arg2, 10, Color.white);
-        File.WriteAllBytes(arg1 + gifIndex+".png", arg2.EncodeToPNG());
-        UserModel.Ins.StoreGIFTex(arg2, gifIndex);
-        Texture2D[] gifComTex = UserModel.Ins.GetGIFTex();
-        for (int i = 0; i < gifComTex.Length; i++)
+        for(int i = 0; i < 3; i++)
         {
-            if (gifComTex[i] == null)
-            {
-                Debug.Log("为空" + i);
-                Texture2D temp = preTex[i];
-                UserModel.Ins.StoreGIFTex(temp, i);
-                //temp = CameraManager.Instan().AddOutLine(temp, 10, Color.white);
-                File.WriteAllBytes(arg1 + i + ".png", temp.EncodeToPNG());
-            }
+            arg2[i]= CameraManager.Instan().AddOutLine(arg2[i], 10, Color.white);
+            File.WriteAllBytes(arg1 + i.ToString() + ".png", arg2[i].EncodeToPNG());
         }
 
         //GifMaker
@@ -303,12 +278,8 @@ public partial class c_P_Edite : UIBase
         {
             Directory.CreateDirectory(Application.streamingAssetsPath + "/gif/");
         }
-        AddWhiteOutLine();
-
-        //StartCoroutine(Wait4Make());
-
         GameObject.Find("GifMaker")?.GetComponent<GIFFactory>()?.MakeGif(() =>
-        {   
+        {
             isComp = true;
         });
     }
@@ -319,34 +290,13 @@ public partial class c_P_Edite : UIBase
         {
             isComp = false;
             StopAllCoroutines();
-            tt.gameObject.SetActive(false);
             UserModel.Ins.StoreLocalPath(Application.streamingAssetsPath + "/gif/yb.gif");
             UserModel.Ins.CurrentState = State.Share;
         }
     }
 
     private bool isComp;
-    public Text tt;
-    private IEnumerator Wait4Make()
-    {
-        tt.gameObject.SetActive(true);
-        tt.text = "请等待";
-        int i = 0;
-        while (true)
-        {
-            if (i < 3)
-            {
-                tt.text += ".";
-            }
-            else
-            {
-                i = 0;
-                tt.text = "请等待";
-            }
-            i++;
-            yield return new WaitForSeconds(0.5f);
-        }
-    }
+
 
     private void AddWhiteOutLine()
     {
@@ -379,7 +329,33 @@ public partial class c_P_Edite : UIBase
         endEvent(Application.streamingAssetsPath + "/png/", te);
     }
 
-    public Text dbug;
+    private IEnumerator CaptureFXTextureGif(Action<string, Texture2D[]> endEvent)
+    {
+        //yield return new WaitForSeconds(0.5f);
+        Texture2D[] gifCom = new Texture2D[3];
+        for(int i = 0; i < 3; i++)
+        {
+            yield return new WaitForEndOfFrame();
+            RenderTexture.active = gifRT[i];
+            Texture2D te = new Texture2D((int)gifTexRaw[i].rectTransform.sizeDelta.x,(int)gifTexRaw[i].rectTransform.sizeDelta.y);
+            Debug.Log(te.width + ":" + te.height);
+            float TEx = Screen.width * 0.5f - gifTexRaw[i].rectTransform.sizeDelta.x * 0.5f + gifTexRaw[i].rectTransform.anchoredPosition3D.x;
+            float TEy = Screen.height * 0.5f - gifTexRaw[i].rectTransform.anchoredPosition3D.y - gifTexRaw[i].rectTransform.sizeDelta.y * 0.5f;
+            te.ReadPixels(new Rect(TEx, TEy, te.width, te.height), 0, 0);
+            Debug.Log(TEx + "," + TEy + "," + te.width + "," + te.height);
+            te.Apply();
+            UserModel.Ins.StoreGIFTex(te,i);
+            gifCom[i] = te;
+            te = null;
+        }
+        trans_c_gificon_0.SetParent(trans_c_icon_gif, false);
+        trans_c_gificon_1.SetParent(trans_c_icon_gif, false);
+        trans_c_gificon_2.SetParent(trans_c_icon_gif, false);
+        
+        endEvent(Application.streamingAssetsPath + "/png/", gifCom);
+    }
+
+   // public Text dbug;
     public override void OnActive()
     {   
         CheckModeAndUpdateTex();
@@ -438,7 +414,23 @@ public partial class c_P_Edite : UIBase
         {
             trans_c_GifSwitch.gameObject.SetActive(true);
             preTex = UserModel.Ins.GetPreGifTex();
-            trans_c_TexRaw.GetComponent<RawImage>().texture = preTex[0];
+            //查找gif相框
+            if (gifTexRaw == null)
+            {
+                gifTexRaw = new RawImage[3];
+            }
+            if (gifRT == null)
+            {
+                gifRT = new RenderTexture[3];
+            }
+            for (int i = 1; i <= 3; i++)
+            {
+                gifTexRaw[i - 1] = GameObject.Find("c_TexRaw" + i.ToString()).GetComponent<RawImage>();
+                gifTexRaw[i - 1].texture = preTex[i - 1];
+                gifRT[i - 1] = GameObject.Find("c_TexCamera" + i.ToString()).GetComponent<Camera>().targetTexture;
+            }
+            //查找rendertexture
+            trans_c_TexRaw.GetComponent<RawImage>().texture = gifRT[0];
             trans_c_btn_gl.gameObject.SetActive(false);
             gifIndex = 0;
         }

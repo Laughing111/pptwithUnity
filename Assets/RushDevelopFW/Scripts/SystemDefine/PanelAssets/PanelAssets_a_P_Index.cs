@@ -1,8 +1,5 @@
 public enum PanelAssets_a_P_Index {
 a_P_Index,
-a_title,
-a_title_photo,
-a_title_gif,
 a_icon,
 a_bg_gif,
 a_bg_photo,
@@ -12,9 +9,9 @@ a_btn_right,
 a_btn_left,
 a_textTitle,
 a_gifActive,
-a_btn_gif_active_c,
-a_btn_photo_normal_c,
+a_btn_gif_active,
+a_btn_photo_normal,
 a_gifInActive,
-a_btn_gif_normal_c,
-a_btn_photo_active_c
+a_btn_gif_normal,
+a_btn_photo_active
 }

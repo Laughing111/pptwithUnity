@@ -17,28 +17,29 @@ using RDFW;
 using UnityEngine.UI;
 using System.IO;
 
-public class UIDownLoadManager : MonoBehaviour {
+public class UIDownLoadManager : MonoBehaviour
+{
 
     private Transform uiRoot;
     private string jsonText;
     private static UIDownLoadManager loadManager;
 
     public List<string> iconUrlList;
-    public Texture2D[] iconTex; 
+    public Texture2D[] iconTex;
 
     private Action<string> AfterTokenAndUpdate;
     [HideInInspector]
     public Text debugText;
-    
+
     public static UIDownLoadManager Ins
     {
         get
         {
             if (loadManager == null)
             {
-               GameObject go=GameObject.Find("UIDownLoadManager");
-               if (go != null)
-               {
+                GameObject go = GameObject.Find("UIDownLoadManager");
+                if (go != null)
+                {
                     if (go.GetComponent<UIDownLoadManager>() != null)
                     {
                         loadManager = go.GetComponent<UIDownLoadManager>();
@@ -48,26 +49,32 @@ public class UIDownLoadManager : MonoBehaviour {
                         loadManager = go.AddComponent<UIDownLoadManager>();
                     }
                 }
-                else{
+                else
+                {
                     go = new GameObject("UIDownLoadManager");
-                    loadManager=go.AddComponent<UIDownLoadManager>();
+                    loadManager = go.AddComponent<UIDownLoadManager>();
                 }
                 loadManager.AfterTokenAndUpdate += loadManager.UpdateJsonAndTexture2D;
             }
             return loadManager;
         }
     }
-    
+
     /// <summary>
     /// 面板名字+url地址
     /// </summary>
     private Dictionary<string, string> panelAssetsPairs;
 
     /// <summary>
+    /// 面板名字+位置地址
+    /// </summary>
+    private Dictionary<string, Vector2> panelPosPairs;
+
+    /// <summary>
     /// 面板名字+实际材质
     /// </summary>
     private Dictionary<string, Texture2D> panelTexturePairs;
-   
+
     /// <summary>
     /// 停止下载
     /// </summary>
@@ -78,19 +85,27 @@ public class UIDownLoadManager : MonoBehaviour {
 
     private void ReadJson(string json)
     {
-        JsonData data =JsonMapper.ToObject(json);
+        if (uiRoot == null)
+        {
+            uiRoot = GameObject.Find("Canvas").transform;
+        }
+        JsonData data = JsonMapper.ToObject(json);
         if (panelAssetsPairs == null)
         {
-            panelAssetsPairs = new Dictionary<string,string>();
+            panelAssetsPairs = new Dictionary<string, string>();
         }
         if (iconUrlList == null)
         {
             iconUrlList = new List<string>();
         }
+        if (panelPosPairs == null)
+        {
+            panelPosPairs = new Dictionary<string, Vector2>();
+        }
         for (int i = 0; i < data.Count; i++)
-        {   
+        {
             string panelName = data[i]["name"].ToString();
-            if(panelName!= "g_p")
+            if (panelName != "g_p")
             {
                 Debug.Log(panelName);
                 int assetsCount = data[i][panelName].Count;
@@ -99,7 +114,7 @@ public class UIDownLoadManager : MonoBehaviour {
                 {
                     string asstsName = data[i][panelName][j]["name"].ToString();
                     //检查是否icon
-                    if(asstsName.Split('_')[1]=="url")
+                    if (asstsName.Split('_')[1] == "url")
                     {
                         //说明是icon
                         //为iconUrl添加
@@ -107,12 +122,36 @@ public class UIDownLoadManager : MonoBehaviour {
                     }
                     else
                     {
-                        if (data[i][panelName][j]["url"]!= null)
+                        if (data[i][panelName][j]["url"] != null)
                         {
                             panelAssetsPairs.Add(data[i][panelName][j]["name"].ToString(), data[i][panelName][j]["url"].ToString());
                         }
-                    } 
+                    }
                     //todo位置参数
+                    //配置位置参数
+                    JsonData posX = data[i][panelName][j]["x"];
+                    JsonData posY = data[i][panelName][j]["y"];
+
+                    if (asstsName.Contains("_active") || asstsName.Contains("_normal"))
+                    {
+                        Transform temp = uiRoot.SearchforChild(asstsName);
+                        if (temp == null)
+                        {
+                            asstsName = asstsName.StringModify("_active", "");
+                            asstsName = asstsName.StringModify("_normal", "");
+                        }
+                    }
+                    if (posX != null && posY != null)
+                    {
+                        if (!panelPosPairs.ContainsKey(asstsName))
+                        {
+                            float aX;
+                            float.TryParse(posX.ToString(), out aX);
+                            float aY;
+                            float.TryParse(posY.ToString(), out aY);
+                            panelPosPairs.Add(asstsName, new Vector2(aX, aY));
+                        }
+                    }
                 }
             }
             else  //全局配置参数
@@ -130,15 +169,15 @@ public class UIDownLoadManager : MonoBehaviour {
         if (panelTexturePairs == null)
         {
             panelTexturePairs = new Dictionary<string, Texture2D>();
-        } 
-        foreach(var e in panelAssetsPairs)
+        }
+        foreach (var e in panelAssetsPairs)
         {
             panelTexturePairs.Add(e.Key, null);
-        } 
+        }
         StartCoroutine(GetTexture(panelTexturePairs, panelAssetsPairs, UpdateTextureWithName));
     }
 
-    private void UpdateTextureWithName(Dictionary<string,Texture2D> nameTexPairs,Action endMethod)
+    private void UpdateTextureWithName(Dictionary<string, Texture2D> nameTexPairs, Action endMethod)
     {
         if (uiRoot == null)
         {
@@ -152,37 +191,72 @@ public class UIDownLoadManager : MonoBehaviour {
         {
             string astName = kv.Key;
             //按钮正常
-            if (astName.Contains("_normal"))
+            if (astName.Contains("_normal") || astName.Contains("_active"))
             {
-                astName = astName.StringModify("_normal", "");
-                Transform ast = uiRoot.SearchforChild(astName);
-                if (ast != null)
+                if (uiRoot.SearchforChild(astName) == null)
                 {
-                    Image img = ast.GetComponent<Image>();
-                    if (img != null)
-                    {
-                        img.sprite = Sprite.Create(kv.Value, new Rect(0, 0, kv.Value.width, kv.Value.height),Vector2.zero);
-                        img.SetNativeSize();
-                    }
-                }
-            }
-            //按钮激活
-            else if (astName.Contains("_active"))
-            {
-                astName = astName.StringModify("_active", "");
-                Transform ast = uiRoot.SearchforChild(astName);
-                if (ast != null)
-                {
-                    Button btn = ast.GetComponent<Button>();
-                    if (btn != null)
+                    if (astName.Contains("_normal"))
                     {
 
-                        btn.transition = Selectable.Transition.SpriteSwap;
-                        SpriteState spriteState = new SpriteState();
-                        spriteState.pressedSprite= Sprite.Create(kv.Value, new Rect(0, 0, kv.Value.width, kv.Value.height), Vector2.zero);
-                        btn.spriteState = spriteState;
+                        astName = astName.StringModify("_normal", "");
+                        Transform ast = uiRoot.SearchforChild(astName);
+                        if (ast != null)
+                        {
+                            Image img = ast.GetComponent<Image>();
+                            if (img != null)
+                            {
+                                img.sprite = Sprite.Create(kv.Value, new Rect(0, 0, kv.Value.width, kv.Value.height), Vector2.zero);
+                                img.SetNativeSize();
+
+                                //设置素材的位置
+                                if (panelPosPairs.ContainsKey(astName))
+                                {
+                                    img.rectTransform.anchoredPosition3D = new Vector3(panelPosPairs[astName].x - Screen.width * 0.5f + img.rectTransform.sizeDelta.x * 0.5f, Screen.height * 0.5f - panelPosPairs[astName].y - img.rectTransform.sizeDelta.y * 0.5f, 0);
+                                }
+                            }
+
+                        }
+                    }
+                    //按钮激活
+                    else if (astName.Contains("_active"))
+                    {
+                        astName = astName.StringModify("_active", "");
+                        Transform ast = uiRoot.SearchforChild(astName);
+                        if (ast != null)
+                        {
+                            Button btn = ast.GetComponent<Button>();
+                            if (btn != null)
+                            {
+
+                                btn.transition = Selectable.Transition.SpriteSwap;
+                                SpriteState spriteState = new SpriteState();
+                                spriteState.pressedSprite = Sprite.Create(kv.Value, new Rect(0, 0, kv.Value.width, kv.Value.height), Vector2.zero);
+                                btn.spriteState = spriteState;
+                            }
+                        }
                     }
                 }
+                else
+                {
+                    //rawImg
+                    Transform ast = uiRoot.SearchforChild(astName);
+                    if (ast != null)
+                    {
+                        RawImage rimg = ast.GetComponent<RawImage>();
+                        if (rimg != null)
+                        {
+                            rimg.texture = kv.Value;
+                            rimg.SetNativeSize();
+
+                            //设置素材的位置
+                            if (panelPosPairs.ContainsKey(astName))
+                            {
+                                rimg.rectTransform.anchoredPosition3D = new Vector3(panelPosPairs[astName].x - Screen.width * 0.5f + rimg.rectTransform.sizeDelta.x * 0.5f, Screen.height * 0.5f - panelPosPairs[astName].y - rimg.rectTransform.sizeDelta.y * 0.5f, 0);
+                            }
+                        }
+                    }
+                }
+
             }
             //rawImg
             else
@@ -195,6 +269,12 @@ public class UIDownLoadManager : MonoBehaviour {
                     {
                         rimg.texture = kv.Value;
                         rimg.SetNativeSize();
+
+                        //设置素材的位置
+                        if (panelPosPairs.ContainsKey(astName))
+                        {
+                            rimg.rectTransform.anchoredPosition3D = new Vector3(panelPosPairs[astName].x - Screen.width * 0.5f + rimg.rectTransform.sizeDelta.x * 0.5f, Screen.height * 0.5f - panelPosPairs[astName].y - rimg.rectTransform.sizeDelta.y * 0.5f, 0);
+                        }
                     }
                 }
             }
@@ -210,23 +290,23 @@ public class UIDownLoadManager : MonoBehaviour {
         endMethod?.Invoke();
     }
 
-    private IEnumerator GetTexture(Dictionary<string,Texture2D> nameTexPair,Dictionary<string,string> nameUrlPairs,Action<Dictionary<string,Texture2D>,Action> updateTexture)
+    private IEnumerator GetTexture(Dictionary<string, Texture2D> nameTexPair, Dictionary<string, string> nameUrlPairs, Action<Dictionary<string, Texture2D>, Action> updateTexture)
     {
-        
-        if(debugText!=null)
+
+        if (debugText != null)
         {
             debugText.text = "正在同步UI素材...";
         }
-        
+
         List<string> nameList = new List<string>();
-        foreach(var k in nameUrlPairs.Keys)
+        foreach (var k in nameUrlPairs.Keys)
         {
             nameList.Add(k);
         }
 
         int DownLoadTimes = nameList.Count;
         WWW www;
-        while (DownLoadTimes>=1)
+        while (DownLoadTimes >= 1)
         {
             DownLoadTimes -= 1;
             string assetsName = nameList[DownLoadTimes];
@@ -239,17 +319,17 @@ public class UIDownLoadManager : MonoBehaviour {
             }
             else
             {
-                if(nameTexPair.ContainsKey(nameList[DownLoadTimes]))
+                if (nameTexPair.ContainsKey(nameList[DownLoadTimes]))
                 {
                     try
                     {
-                        nameTexPair[assetsName]=www.texture;
+                        nameTexPair[assetsName] = www.texture;
                     }
                     catch
                     {
                         Debug.LogError(assetsName);
                     }
-                } 
+                }
             }
         }
 
@@ -260,8 +340,8 @@ public class UIDownLoadManager : MonoBehaviour {
             iconTex = new Texture2D[iconCount];
         }
         int iconIndex = 0;
-        while (iconIndex<iconCount)
-        {   
+        while (iconIndex < iconCount)
+        {
             string iconUrl = iconUrlList[iconIndex];
             www = new WWW(iconUrl);
             yield return www;
@@ -276,7 +356,7 @@ public class UIDownLoadManager : MonoBehaviour {
             iconIndex++;
         }
 
-        if(nameTexPair.Count>0)
+        if (nameTexPair.Count > 0)
         {
             updateTexture(nameTexPair, EndEvent);
         }
@@ -303,7 +383,7 @@ public class UIDownLoadManager : MonoBehaviour {
         }
         else
         {
-            jsonText= System.Text.Encoding.UTF8.GetString(www.bytes, 3, www.bytes.Length - 3); ;
+            jsonText = System.Text.Encoding.UTF8.GetString(www.bytes, 3, www.bytes.Length - 3); ;
             Debug.Log(jsonText);
             sucMethod(jsonText);
         }
@@ -314,16 +394,12 @@ public class UIDownLoadManager : MonoBehaviour {
 
         CheckUUID();
         //StartCoroutine(GetJsonText(ReadJson)); 
-        
     }
 
     public void UpdateJsonAndTexture2D(string _uuid)
-    {  
+    {
         StartCoroutine(GetJsonText(ReadJson));
     }
-
-    
-
     public void SetUUID(string _uuid)
     {
         uuid = _uuid;
@@ -334,8 +410,8 @@ public class UIDownLoadManager : MonoBehaviour {
     /// 获取本地uuid,并http-get验证token
     /// </summary>
     private void CheckUUID()
-    {   
-        if(uuid==null)
+    {
+        if (uuid == null)
         {
             //读取本地的uuid
             if (File.Exists(Application.streamingAssetsPath + "/uuid.json"))
@@ -360,7 +436,7 @@ public class UIDownLoadManager : MonoBehaviour {
         {
             string jsonText = www.text;
             JsonToken tokenData = JsonMapper.ToObject<JsonToken>(jsonText);
-            Debug.Log(tokenData.status+":"+tokenData.data.data_json);
+            Debug.Log(tokenData.status + ":" + tokenData.data.data_json);
             if (tokenData.status == 200)
             {
                 UserModel.Ins.StoreToken(tokenData.data.token);
@@ -370,7 +446,7 @@ public class UIDownLoadManager : MonoBehaviour {
         }
         //debugText.text = "uuid失效，请重新输入。";
         //MessageCenter.GetMessage(PanelAssets_e_Setting.e_Setting.ToString(), new MessageAddress("PopInput", null));
-        
+
         //test
         AfterTokenAndUpdate?.Invoke(uuid);
 
