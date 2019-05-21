@@ -168,8 +168,7 @@ namespace RDFW {
         }
 
         public void RegisterInterObjectPointUp(Transform InterObjectAssets, EventTriggerManager.PointUpListened InterEvent)
-        {
-
+        {   
             //查找对象组件
             GameObject InterObject = InterObjectAssets.gameObject;
             //为对象添加监听组件

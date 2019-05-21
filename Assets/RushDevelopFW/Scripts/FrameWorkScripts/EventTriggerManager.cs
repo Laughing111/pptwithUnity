@@ -63,7 +63,7 @@ namespace RDFW
         }
         public override void OnPointerUp(PointerEventData eventData)
         {
-            base.OnPointerDown(eventData);
+            base.OnPointerUp(eventData);
             pointUpListened?.Invoke(eventData);
             if (GameObject.Find("TimeManager") != null)
             {

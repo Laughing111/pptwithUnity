@@ -21,6 +21,7 @@ using UnityEngine.UI;
 public partial class c_P_Edite : UIBase
 {
 
+     
     private ShotMode shotMode;
     private Texture2D[] preTex;
     private int gifIndex;
@@ -36,7 +37,7 @@ public partial class c_P_Edite : UIBase
     {
         //if(offLine)
         //{
-        //    CheckAndCreateIconBtn();
+            CheckAndCreateIconBtn();
         //} 
         PanelInit();
         
@@ -171,29 +172,32 @@ public partial class c_P_Edite : UIBase
     
     private void AddIcon(PointerEventData eventData)
     {
-        string addPrefabName = eventData.pointerPress.name + "i";
-        GameObject go = RDResManager.LoadWithCache<GameObject>("icon_addPrefabs/c_icon_selectInsAdd");
-        Transform goTrans = Instantiate(go).transform;
-        goTrans.name = addPrefabName;
-        int oldCount;
-        Transform parent;
-        if (shotMode == ShotMode.Jpg)
-        {   
-            parent = trans_c_icon_jpg;
-            oldCount = parent.childCount;
-        }
-        else
+        if (!eventData.IsPointerMoving())
         {
-            parent = trans_c_icon_gif.GetChild(gifIndex);
-            oldCount = parent.childCount;
-        }
-        goTrans.SetParent(parent, false);
-        goTrans.GetChild(0).GetComponent<RawImage>().texture = eventData.pointerPress.transform.GetChild(0).GetComponent<RawImage>().texture;
-        goTrans.GetChild(0).GetComponent<RawImage>().SetNativeSize();
-        if(oldCount>0)
-        {
-            goTrans.GetComponent<RectTransform>().anchoredPosition3D = goTrans.parent.GetChild(oldCount - 1).GetComponent<RectTransform>().anchoredPosition3D + new Vector3(30, 0, 0);
-            
+            string addPrefabName = eventData.pointerPress.name + "i";
+            GameObject go = RDResManager.LoadWithCache<GameObject>("icon_addPrefabs/c_icon_selectInsAdd");
+            Transform goTrans = Instantiate(go).transform;
+            goTrans.name = addPrefabName;
+            int oldCount;
+            Transform parent;
+            if (shotMode == ShotMode.Jpg)
+            {
+                parent = trans_c_icon_jpg;
+                oldCount = parent.childCount;
+            }
+            else
+            {
+                parent = trans_c_icon_gif.GetChild(gifIndex);
+                oldCount = parent.childCount;
+            }
+            goTrans.SetParent(parent, false);
+            goTrans.GetChild(0).GetComponent<RawImage>().texture = eventData.pointerPress.transform.GetChild(0).GetComponent<RawImage>().texture;
+            goTrans.GetChild(0).GetComponent<RawImage>().SetNativeSize();
+            if (oldCount > 0)
+            {
+                goTrans.GetComponent<RectTransform>().anchoredPosition3D = goTrans.parent.GetChild(oldCount - 1).GetComponent<RectTransform>().anchoredPosition3D + new Vector3(30, 0, 0);
+
+            }
         }
     }
     private void SaveFXTexAndCheck2Share(PointerEventData eventData)
@@ -377,7 +381,7 @@ public partial class c_P_Edite : UIBase
                     trans_c_icon_group = transform.SearchforChild(PanelAssets_c_P_Edite.c_icon_group.ToString());
                 }
                 insGo.transform.SetParent(trans_c_icon_group, false);
-                insGo.GetComponent<RectTransform>().anchoredPosition3D = new Vector3(-827.0f + countSpace*(i+1), -400, 0);
+                insGo.GetComponent<RectTransform>().anchoredPosition3D = new Vector3(133 + countSpace*(i+1), 0, 0);
             }
         }
     }
@@ -398,7 +402,7 @@ public partial class c_P_Edite : UIBase
                     trans_c_icon_group = transform.SearchforChild(PanelAssets_c_P_Edite.c_icon_group.ToString());
                 }
                 insGo.transform.SetParent(trans_c_icon_group, false);
-                insGo.GetComponent<RectTransform>().anchoredPosition3D = new Vector3(-827.0f + countSpace * (i-1), -400, 0);
+                insGo.GetComponent<RectTransform>().anchoredPosition3D = new Vector3(-827.0f + countSpace * (i-1), 0, 0);
                 insGo.GetComponent<RawImage>().texture = iconBGTex;
                 insGo.GetComponent<RawImage>().SetNativeSize();
                 insGo.transform.GetChild(0).GetComponent<RawImage>().texture = te[i];

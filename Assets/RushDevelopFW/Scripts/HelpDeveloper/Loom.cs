@@ -108,14 +108,6 @@ public class Loom : MonoBehaviour
         }
     }
 
-
-
-    // Use this for initialization
-    void Start()
-    {
-
-    }
-
     List<NoDelayedQueueItem> _currentActions = new List<NoDelayedQueueItem>();
 
     // Update is called once per frame
