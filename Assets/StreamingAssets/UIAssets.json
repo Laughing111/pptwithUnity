@@ -1,191 +1,191 @@
 ﻿[{
-    "name": "g_p",
-    "g_p": [{
-        "name": "g_mode_photo",
-        "mode": 1
-    }, {
-        "name": "g_mode_gif",
-        "mode": 0
-    }, {
-        "name": "g_mode_pstick",
-        "mode": 1
-    }, {
-        "name": "g_mode_gstick",
-        "mode": 1
-    }, {
-        "name": "g_mode_print",
-        "mode": 1
-    }, {
-        "name": "g_mode_frame",
-        "mode": 1
-    }, {
-        "name": "g_num_pw",
-        "num": "1920"
-    }, {
-        "name": "g_num_ph",
-        "num": "1080"
-    }, {
-        "name": "g_num_pfp",
-        "num": "10"
-    }, {
-        "name": "g_url_pf",
-        "url": "http://x-resource.oss-cn-hangzhou.aliyuncs.com/e6d0-98b7-28ea-ddf8/h5/global/photoframe.png"
-    }]
+	"name": "g_p",
+	"g_p": [{
+		"name": "g_mode_photo",
+		"mode": 0
+	}, {
+		"name": "g_mode_gif",
+		"mode": 1
+	}, {
+		"name": "g_mode_pstick",
+		"mode": 1
+	}, {
+		"name": "g_mode_gstick",
+		"mode": 0
+	}, {
+		"name": "g_mode_print",
+		"mode": 0
+	}, {
+		"name": "g_mode_frame",
+		"mode": 0
+	}, {
+		"name": "g_num_pw",
+		"num": 1440
+	}, {
+		"name": "g_num_ph",
+		"num": 1080
+	}, {
+		"name": "g_num_pfp",
+		"num": "30"
+	}, {
+		"name": "g_url_pf",
+		"url": "http://x-resource.oss-cn-hangzhou.aliyuncs.com/0c96-01e1-7a33-fc09/app/global/photoframe.JPG"
+	}]
 }, {
-    "name": "a_p_index",
-    "a_p_index": [{
-        "name": "a_bg_photo",
-        "url": "https://betech-kavin.oss-cn-hangzhou.aliyuncs.com/ppt/test2/beginpage/jpghint.png"
-    }, {
-        "name": "a_bg_gif",
-        "url": "https://betech-kavin.oss-cn-hangzhou.aliyuncs.com/ppt/test2/beginpage/gifhint.png"
-    }, {
-        "name": "a_btn_next_normal",
-        "x": "1650",
-        "y": "816",
-        "url": "https://betech-kavin.oss-cn-hangzhou.aliyuncs.com/ppt/test2/beginpage/nextbtn.png"
-    }, {
-        "name": "a_btn_next_active",
-        "x": "1650",
-        "y": "816",
-        "url": "https://betech-kavin.oss-cn-hangzhou.aliyuncs.com/ppt/test2/beginpage/nextbtn.png"
-    }, {
-        "name": "a_btn_gif_normal",
-        "x": "1650",
-        "y": "190",
-        "url": "https://betech-kavin.oss-cn-hangzhou.aliyuncs.com/ppt/test2/beginpage/gificon2.png"
-    }, {
-        "name": "a_btn_gif_active",
-        "x": "1650",
-        "y": "190",
-        "url": "https://betech-kavin.oss-cn-hangzhou.aliyuncs.com/ppt/test2/beginpage/gificon1.png"
-    }, {
-        "name": "a_btn_photo_normal",
-        "x": "1485",
-        "y": "82",
-        "url": "https://betech-kavin.oss-cn-hangzhou.aliyuncs.com/ppt/test2/beginpage/jpgicon2.png"
-    }, {
-        "name": "a_btn_photo_active",
-        "x": "1485",
-        "y": "82",
-        "url": "https://betech-kavin.oss-cn-hangzhou.aliyuncs.com/ppt/test2/beginpage/jpgicon1.png"
-    }]
+	"name": "a_p_index",
+	"a_p_index": [{
+		"name": "a_bg_photo",
+		"url": ""
+	}, {
+		"name": "a_bg_gif",
+		"url": "http://x-resource.oss-cn-hangzhou.aliyuncs.com/0c96-01e1-7a33-fc09/app/home_page/gif_background.JPG"
+	}, {
+		"name": "a_btn_next_normal",
+		"x": "1650",
+		"y": "816",
+		"url": ""
+	}, {
+		"name": "a_btn_next_active",
+		"x": "1650",
+		"y": "816",
+		"url": ""
+	}, {
+		"name": "a_btn_gif_normal",
+		"x": "1650",
+		"y": "190",
+		"url": "http://x-resource.oss-cn-hangzhou.aliyuncs.com/0c96-01e1-7a33-fc09/app/home_page/gif_button_normal.JPG"
+	}, {
+		"name": "a_btn_gif_active",
+		"x": "1650",
+		"y": "190",
+		"url": ""
+	}, {
+		"name": "a_btn_photo_normal",
+		"x": "1485",
+		"y": "82",
+		"url": ""
+	}, {
+		"name": "a_btn_photo_active",
+		"x": "1485",
+		"y": "82",
+		"url": ""
+	}]
 }, {
-    "name": "b_p_shot",
-    "b_p_shot": [{
-        "name": "b_bg",
-        "url": "https://betech-kavin.oss-cn-hangzhou.aliyuncs.com/ppt/test2/photopage/bg.png?v=1557848325791"
-    }, {
-        "name": "b_hint_photo",
-        "x": 780,
-        "y": 758,
-        "url": "https://betech-kavin.oss-cn-hangzhou.aliyuncs.com/ppt/test2/photopage/takehint.png?v=1557848325791"
-    }, {
-        "name": "b_hint_gif",
-        "x": 780,
-        "y": 758,
-        "url": "https://betech-kavin.oss-cn-hangzhou.aliyuncs.com/ppt/test2/photopage/gif_capture_button.png?v=1557848325791"
-    }, {
-        "name": "b_btn_shot_normal",
-        "x": 870,
-        "y": 874,
-        "url": "https://betech-kavin.oss-cn-hangzhou.aliyuncs.com/ppt/test2/photopage/takebtn.png?v=1557848325791"
-    }, {
-        "name": "b_btn_shot_active",
-        "x": 870,
-        "y": 874,
-        "url": "https://betech-kavin.oss-cn-hangzhou.aliyuncs.com/ppt/test2/photopage/takebtn.png?v=1557848325791"
-    }, {
-        "name": "b_btn_close_normal",
-        "x": 1600,
-        "y": 34,
-        "url": "https://betech-kavin.oss-cn-hangzhou.aliyuncs.com/ppt/test2/photopage/returnbtn.png?v=1557848325791"
-    }, {
-        "name": "b_btn_close_active",
-        "x": 1600,
-        "y": 34,
-        "url": "https://betech-kavin.oss-cn-hangzhou.aliyuncs.com/ppt/test2/photopage/returnbtn.png?v=1557848325791"
-    }, {
-        "name": "b_hint_look",
-        "x": 240,
-        "y": 0,
-        "url": "https://betech-kavin.oss-cn-hangzhou.aliyuncs.com/ppt/test2/photopage/lookhint.png?v=1557848325791"
-    }, {
-        "name": "b_hint_cd1",
-        "x": 240,
-        "y": 0,
-        "url": "https://betech-kavin.oss-cn-hangzhou.aliyuncs.com/ppt/test2/photopage/countImgs/1.png"
-    }, {
-        "name": "b_hint_cd2",
-        "x": 240,
-        "y": 0,
-        "url": "https://betech-kavin.oss-cn-hangzhou.aliyuncs.com/ppt/test2/photopage/countImgs/2.png"
-    }, {
-        "name": "b_hint_cd3",
-        "x": 240,
-        "y": 0,
-        "url": "https://betech-kavin.oss-cn-hangzhou.aliyuncs.com/ppt/test2/photopage/countImgs/3.png"
-    }, {
-        "name": "b_area_lv",
-        "x": 240,
-        "y": 0,
-        "width": 1440,
-        "height": 1080
-    }]
+	"name": "b_p_shot",
+	"b_p_shot": [{
+		"name": "b_bg",
+		"url": ""
+	}, {
+		"name": "b_hint_photo",
+		"x": 780,
+		"y": 758,
+		"url": ""
+	}, {
+		"name": "b_hint_gif",
+		"x": 780,
+		"y": 758,
+		"url": ""
+	}, {
+		"name": "b_btn_shot_normal",
+		"x": 870,
+		"y": 874,
+		"url": ""
+	}, {
+		"name": "b_btn_shot_active",
+		"x": 870,
+		"y": 874,
+		"url": ""
+	}, {
+		"name": "b_btn_close_normal",
+		"x": 1600,
+		"y": 34,
+		"url": ""
+	}, {
+		"name": "b_btn_close_active",
+		"x": 1600,
+		"y": 34,
+		"url": ""
+	}, {
+		"name": "b_hint_look",
+		"x": 240,
+		"y": 0,
+		"url": ""
+	}, {
+		"name": "b_hint_cd1",
+		"x": 240,
+		"y": 0,
+		"url": ""
+	}, {
+		"name": "b_hint_cd2",
+		"x": 240,
+		"y": 0,
+		"url": ""
+	}, {
+		"name": "b_hint_cd3",
+		"x": 240,
+		"y": 0,
+		"url": ""
+	}, {
+		"name": "b_area_lv",
+		"x": 240,
+		"y": 0,
+		"width": 1440,
+		"height": 1080
+	}]
 }, {
-    "name": "c_p_stick",
+	"name": "c_p_stick",
 	"c_p_stick": [
 		{
 			"name": "c_bg",
-			"url": "https://betech-kavin.oss-cn-hangzhou.aliyuncs.com/ppt/test2/stickerpage/bg.png"
+			"url": ""
 		},
 		{
 			"name": "c_btn_next_normal",
 			"x": 1680,
 			"y": 550,
-			"url": "https://betech-kavin.oss-cn-hangzhou.aliyuncs.com/ppt/test2/stickerpage/nextbtn.png?v=1557848325791"
+			"url": ""
 		},
 		{
 			"name": "c_btn_next_active",
 			"x": 1680,
 			"y": 550,
-			"url": "https://betech-kavin.oss-cn-hangzhou.aliyuncs.com/ppt/test2/stickerpage/nextbtn.png?v=1557848325791"
+			"url": ""
 		},
 		{
 			"name": "c_btn_back_normal",
 			"x": 160,
 			"y": 550,
-			"url": "https://betech-kavin.oss-cn-hangzhou.aliyuncs.com/ppt/test2/stickerpage/retakebtn.png?v=1557848325791"
+			"url": ""
 		},
 		{
 			"name": "c_btn_back_active",
 			"x": 160,
 			"y": 550,
-			"url": "https://betech-kavin.oss-cn-hangzhou.aliyuncs.com/ppt/test2/stickerpage/retakebtn.png?v=1557848325791"
+			"url": ""
 		},
 		{
 			"name": "c_btn_gl_normal",
 			"x": 420,
 			"y": 450,
-			"url": "https://betech-kavin.oss-cn-hangzhou.aliyuncs.com/ppt/test2/stickerpage/leftbtn.png?v=1557848325791"
+			"url": ""
 		},
 		{
 			"name": "c_btn_gl_active",
 			"x": 420,
 			"y": 450,
-			"url": "https://betech-kavin.oss-cn-hangzhou.aliyuncs.com/ppt/test2/stickerpage/leftbtn.png?v=1557848325791"
+			"url": ""
 		},
 		{
 			"name": "c_btn_gr_normal",
 			"x": 1600,
 			"y": 450,
-			"url": "https://betech-kavin.oss-cn-hangzhou.aliyuncs.com/ppt/test2/stickerpage/rightbtn.png?v=1557848325791"
+			"url": ""
 		},
 		{
 			"name": "c_btn_gr_active",
 			"x": 1600,
 			"y": 450,
-			"url": "https://betech-kavin.oss-cn-hangzhou.aliyuncs.com/ppt/test2/stickerpage/rightbtn.png?v=1557848325791"
+			"url": ""
 		},
 		{
 			"name": "b_area_result",
@@ -196,110 +196,62 @@
 		},
 		{
 			"name": "c_url_sbg",
-			"url": "https://betech-kavin.oss-cn-hangzhou.aliyuncs.com/ppt/test2/stickerpage/circle.png"
+			"url": ""
 		},
 		{
 			"name": "c_url_sdefault",
-			"url": "https://betech-kavin.oss-cn-hangzhou.aliyuncs.com/ppt/test2/stickerpage/defaultbtn.png"
-		},
-		{
-			"name": "c_url_s1",
-			"url": "https://betech-kavin.oss-cn-hangzhou.aliyuncs.com/ppt/test2/stickerpage/stickerImgs/00.png"
-		},
-		{
-			"name": "c_url_s2",
-			"url": "https://betech-kavin.oss-cn-hangzhou.aliyuncs.com/ppt/test2/stickerpage/stickerImgs/01.png"
-		},
-		{
-			"name": "c_url_s3",
-			"url": "https://betech-kavin.oss-cn-hangzhou.aliyuncs.com/ppt/test2/stickerpage/stickerImgs/02.png"
-		},
-		{
-			"name": "c_url_s4",
-			"url": "https://betech-kavin.oss-cn-hangzhou.aliyuncs.com/ppt/test2/stickerpage/stickerImgs/03.png"
-		},
-		{
-			"name": "c_url_s5",
-			"url": "https://betech-kavin.oss-cn-hangzhou.aliyuncs.com/ppt/test2/stickerpage/stickerImgs/04.png"
-		},
-		{
-			"name": "c_url_s6",
-			"url": "https://betech-kavin.oss-cn-hangzhou.aliyuncs.com/ppt/test2/stickerpage/stickerImgs/05.png"
-		},
-		{
-			"name": "c_url_s7",
-			"url": "https://betech-kavin.oss-cn-hangzhou.aliyuncs.com/ppt/test2/stickerpage/stickerImgs/06.png"
-		},
-		{
-			"name": "c_url_s8",
-			"url": "https://betech-kavin.oss-cn-hangzhou.aliyuncs.com/ppt/test2/stickerpage/stickerImgs/07.png"
-		},
-		{
-			"name": "c_url_s9",
-			"url": "https://betech-kavin.oss-cn-hangzhou.aliyuncs.com/ppt/test2/stickerpage/stickerImgs/08.png"
-		},
-		{
-			"name": "c_url_s10",
-			"url": "https://betech-kavin.oss-cn-hangzhou.aliyuncs.com/ppt/test2/stickerpage/stickerImgs/09.png"
-		},
-		{
-			"name": "c_url_s11",
-			"url": "https://betech-kavin.oss-cn-hangzhou.aliyuncs.com/ppt/test2/stickerpage/stickerImgs/10.png"
-		},
-		{
-			"name": "c_url_s12",
-			"url": "https://betech-kavin.oss-cn-hangzhou.aliyuncs.com/ppt/test2/stickerpage/stickerImgs/11.png"
+			"url": ""
 		}
 	]
 }, {
-    "name": "d_p_share",
-    "d_p_share": [{
-        "name": "d_bg_photo",
-        "url": "https://betech-kavin.oss-cn-hangzhou.aliyuncs.com/ppt/test2/resultpage/jpg_background.jpg"
-    }, {
-        "name": "d_bg_gif",
-        "url": "https://betech-kavin.oss-cn-hangzhou.aliyuncs.com/ppt/test2/resultpage/gif_background.jpg"
-    }, {
-        "name": "d_btn_back_normal",
-        "x": 30,
-        "y": 300,
-        "url": "https://betech-kavin.oss-cn-hangzhou.aliyuncs.com/ppt/test2/resultpage/returnbtn.png"
-    }, {
-        "name": "d_btn_back_active",
-        "x": 30,
-        "y": 300,
-        "url": "https://betech-kavin.oss-cn-hangzhou.aliyuncs.com/ppt/test2/resultpage/returnbtn.png"
-    }, {
-        "name": "d_btn_print_normal",
-        "x": 1340,
-        "y": 731,
-        "url": "https://betech-kavin.oss-cn-hangzhou.aliyuncs.com/ppt/test2/resultpage/printbtn.png"
-    }, {
-        "name": "d_btn_print_active",
-        "x": 1340,
-        "y": 731,
-        "url": "https://betech-kavin.oss-cn-hangzhou.aliyuncs.com/ppt/test2/resultpage/printbtn.png"
-    }, {
-        "name": "d_btn_home_normal",
-        "x": 30,
-        "y": 551,
-        "url": "https://betech-kavin.oss-cn-hangzhou.aliyuncs.com/ppt/test2/resultpage/homebtn.png"
-    }, {
-        "name": "d_btn_home_active",
-        "x": 30,
-        "y": 551,
-        "url": "https://betech-kavin.oss-cn-hangzhou.aliyuncs.com/ppt/test2/resultpage/homebtn.png"
-    }, {
-        "name": "d_area_result",
-        "x": 310,
-        "y": 165,
-        "width": 1000,
-        "height": 750
-    }, {
-        "name": "d_area_qrcode",
-        "x": 1456,
-        "y": 453,
-        "width": 226,
-        "height": 226
-    }]
+	"name": "d_p_share",
+	"d_p_share": [{
+		"name": "d_bg_photo",
+		"url": ""
+	}, {
+		"name": "d_bg_gif",
+		"url": ""
+	}, {
+		"name": "d_btn_back_normal",
+		"x": 30,
+		"y": 300,
+		"url": ""
+	}, {
+		"name": "d_btn_back_active",
+		"x": 30,
+		"y": 300,
+		"url": ""
+	}, {
+		"name": "d_btn_print_normal",
+		"x": 1340,
+		"y": 731,
+		"url": ""
+	}, {
+		"name": "d_btn_print_active",
+		"x": 1340,
+		"y": 731,
+		"url": ""
+	}, {
+		"name": "d_btn_home_normal",
+		"x": 30,
+		"y": 551,
+		"url": ""
+	}, {
+		"name": "d_btn_home_active",
+		"x": 30,
+		"y": 551,
+		"url": ""
+	}, {
+		"name": "d_area_result",
+		"x": 310,
+		"y": 165,
+		"width": 1000,
+		"height": 750
+	}, {
+		"name": "d_area_qrcode",
+		"x": 1456,
+		"y": 453,
+		"width": 226,
+		"height": 226
+	}]
 }]

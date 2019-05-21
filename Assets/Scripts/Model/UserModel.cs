@@ -76,6 +76,7 @@ public class UserModel
         CurrentState = state;
     }
 
+    //oss 上传的token
     private string token;
     private ShotMode shotMode;
     private Texture2D camRaw;

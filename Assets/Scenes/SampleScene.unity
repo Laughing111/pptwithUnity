@@ -4973,7 +4973,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f46bf9749688ca043b9b1d6010a78432, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  panelState: 2
+  panelState: 1
   mode_photo: 1
   mode_gif: 0
   mode_pstick: 1

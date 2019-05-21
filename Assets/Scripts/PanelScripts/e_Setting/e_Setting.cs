@@ -38,16 +38,16 @@ public partial class e_Setting : UIBase {
 
     private void DownLoadUI(PointerEventData eventData)
     {
-        UIDownLoadManager.Ins.SetUUID(trans_e_InputUUID.GetComponent<InputField>().text);
+        uiDownLoadManager.SetUUID(trans_e_InputUUID.GetComponent<InputField>().text);
         trans_e_TipGroup.gameObject.SetActive(false);
-        UIDownLoadManager.Ins.CheckAndUpdate();
+        uiDownLoadManager.CheckAndUpdate();
     }
 
     public override void OnActive()
     {
         trans_e_TipGroup.gameObject.SetActive(false);
         trans_e_tip.GetComponent<Text>().text = "正在为您初始化资源...";
-        UIDownLoadManager.Ins.debugText = trans_e_tip.GetComponent<Text>();
+        uiDownLoadManager.debugText = trans_e_tip.GetComponent<Text>();
         uiDownLoadManager.CheckAndUpdate();
         base.OnActive();
     }

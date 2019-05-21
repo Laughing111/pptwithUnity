@@ -291,8 +291,12 @@ public class UIDownLoadManager : MonoBehaviour
                             Image img = ast.GetComponent<Image>();
                             if (img != null)
                             {
-                                img.sprite = Sprite.Create(kv.Value, new Rect(0, 0, kv.Value.width, kv.Value.height), Vector2.zero);
-                                img.SetNativeSize();
+                                if (kv.Value != null)
+                                {
+                                    img.sprite = Sprite.Create(kv.Value, new Rect(0, 0, kv.Value.width, kv.Value.height), Vector2.zero);
+                                    img.SetNativeSize();
+                                }
+                                
 
                                 //设置素材的位置
                                 if (panelPosPairs.ContainsKey(astName))
@@ -316,8 +320,11 @@ public class UIDownLoadManager : MonoBehaviour
 
                                 btn.transition = Selectable.Transition.SpriteSwap;
                                 SpriteState spriteState = new SpriteState();
-                                spriteState.pressedSprite = Sprite.Create(kv.Value, new Rect(0, 0, kv.Value.width, kv.Value.height), Vector2.zero);
-                                btn.spriteState = spriteState;
+                                if (kv.Value != null)
+                                {
+                                    spriteState.pressedSprite = Sprite.Create(kv.Value, new Rect(0, 0, kv.Value.width, kv.Value.height), Vector2.zero);
+                                    btn.spriteState = spriteState;
+                                } 
                             }
                         }
                     }
@@ -424,23 +431,26 @@ public class UIDownLoadManager : MonoBehaviour
             DownLoadTimes -= 1;
             string assetsName = nameList[DownLoadTimes];
             string url = nameUrlPairs[assetsName];
-            www = new WWW(url);
-            yield return www;
-            if (www.error != null)
+            if (url != "")
             {
-                Debug.Log(www.error + ":" + assetsName);
-            }
-            else
-            {
-                if (nameTexPair.ContainsKey(nameList[DownLoadTimes]))
+                www = new WWW(url);
+                yield return www;
+                if (www.error != null)
                 {
-                    try
+                    Debug.Log(www.error + ":" + assetsName);
+                }
+                else
+                {
+                    if (nameTexPair.ContainsKey(nameList[DownLoadTimes]))
                     {
-                        nameTexPair[assetsName] = www.texture;
-                    }
-                    catch
-                    {
-                        Debug.LogError(assetsName);
+                        try
+                        {
+                            nameTexPair[assetsName] = www.texture;
+                        }
+                        catch
+                        {
+                            Debug.LogError(assetsName);
+                        }
                     }
                 }
             }
@@ -456,15 +466,18 @@ public class UIDownLoadManager : MonoBehaviour
         while (iconIndex < iconCount)
         {
             string iconUrl = iconUrlList[iconIndex];
-            www = new WWW(iconUrl);
-            yield return www;
-            if (www.error != null)
+            if (iconUrl != "")
             {
-                Debug.Log(www.error + ":" + iconIndex);
-            }
-            else
-            {
-                iconTex[iconIndex] = www.texture;
+                www = new WWW(iconUrl);
+                yield return www;
+                if (www.error != null)
+                {
+                    Debug.Log(www.error + ":" + iconIndex);
+                }
+                else
+                {
+                    iconTex[iconIndex] = www.texture;
+                }
             }
             iconIndex++;
         }
@@ -479,9 +492,6 @@ public class UIDownLoadManager : MonoBehaviour
     {
         MessageCenter.GetMessage(PanelAssets_e_Setting.e_Setting.ToString(), new MessageAddress("ChangeState", null));
     }
-
-
-
     private IEnumerator GetJsonText(Action<string> sucMethod)
     {
         if (debugText != null)
@@ -496,7 +506,7 @@ public class UIDownLoadManager : MonoBehaviour
         }
         else
         {
-            jsonText = System.Text.Encoding.UTF8.GetString(www.bytes, 3, www.bytes.Length - 3); ;
+            jsonText = System.Text.Encoding.UTF8.GetString(www.bytes, 3, www.bytes.Length - 3);
             Debug.Log(jsonText);
             sucMethod(jsonText);
         }
@@ -505,13 +515,15 @@ public class UIDownLoadManager : MonoBehaviour
     public void CheckAndUpdate()
     {
 
-        CheckUUID();
-        //StartCoroutine(GetJsonText(ReadJson)); 
+        //CheckUUID();
+        StartCoroutine(GetJsonText(ReadJson)); 
     }
 
-    public void UpdateJsonAndTexture2D(string _uuid)
+    public void UpdateJsonAndTexture2D(string jsondata)
     {
-        StartCoroutine(GetJsonText(ReadJson));
+        //test 本地Json
+        //StartCoroutine(GetJsonText(ReadJson));
+        ReadJson(jsondata);
     }
     public void SetUUID(string _uuid)
     {
@@ -544,25 +556,25 @@ public class UIDownLoadManager : MonoBehaviour
         if (www.error != null)
         {
             Debug.Log(www.error);
+            debugText.text = "远程访问出错，请检查网络...";
+            MessageCenter.GetMessage(PanelAssets_e_Setting.e_Setting.ToString(), new MessageAddress("PopInput", null));
         }
         else
         {
-            string jsonText = www.text;
-            JsonToken tokenData = JsonMapper.ToObject<JsonToken>(jsonText);
+            //string jsonText = System.Text.Encoding.UTF8.GetString(www.bytes, 3, www.bytes.Length - 3);
+            JsonToken tokenData = JsonMapper.ToObject<JsonToken>(www.text);
             Debug.Log(tokenData.status + ":" + tokenData.data.data_json);
             if (tokenData.status == 200)
             {
                 UserModel.Ins.StoreToken(tokenData.data.token);
-                AfterTokenAndUpdate?.Invoke(uuid);
+                AfterTokenAndUpdate?.Invoke(tokenData.data.data_json);
             }
-            yield return null;
+            else
+            {
+                debugText.text = "uuid失效，请重新输入。";
+                MessageCenter.GetMessage(PanelAssets_e_Setting.e_Setting.ToString(), new MessageAddress("PopInput", null));
+            }
         }
-        //debugText.text = "uuid失效，请重新输入。";
-        //MessageCenter.GetMessage(PanelAssets_e_Setting.e_Setting.ToString(), new MessageAddress("PopInput", null));
-
-        //test
-        AfterTokenAndUpdate?.Invoke(uuid);
-
     }
 
 }
