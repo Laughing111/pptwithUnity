@@ -29,10 +29,20 @@ public enum State
 
 
 public class UserModel
-{
-   private static UserModel userModel;
+{  
+    public bool mode_photo { get; set; }
+    public bool mode_gif { get; set; }
+    public bool mode_pstick { get; set; }
+    public bool mode_gstick { get; set; }
+    public bool mode_print { get; set; }
+    public bool mode_frame { get; set; }
+    public int num_pfp { get; set; }
+    public int num_pw { get; set; }
+    public int num_ph { get; set; }
+
+    private static UserModel userModel;
    private UserModel(ShotMode _shotMode) { shotMode = _shotMode;}
-    #region gifRate
+   #region gifRate
     private float gifRate;
    public float GetGifRate()
     {

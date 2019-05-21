@@ -113,24 +113,32 @@ public class CameraManager {
     /// <returns></returns>
     public Texture2D AddOutLine(Texture2D source,int outLineWidth,Color color)
     {
-        Texture2D result = new Texture2D(source.width + outLineWidth * 2, source.height + outLineWidth * 2,source.format,false);
-        for(int i=0;i<result.height;i++)
+        if (outLineWidth > 0)
         {
-            for(int j = 0; j <result.width; j++)
+            Texture2D result = new Texture2D(source.width + outLineWidth * 2, source.height + outLineWidth * 2, source.format, false);
+            for (int i = 0; i < result.height; i++)
             {
-                if (i >=outLineWidth&&j>=outLineWidth&&i<result.height-outLineWidth&&j<result.width-outLineWidth)
+                for (int j = 0; j < result.width; j++)
                 {
-                    Color c= source.GetPixel(j- outLineWidth, i- outLineWidth);
-                    result.SetPixel(j, i, c);
-                }
-                else
-                {
-                    result.SetPixel(j, i, color);
+                    if (i >= outLineWidth && j >= outLineWidth && i < result.height - outLineWidth && j < result.width - outLineWidth)
+                    {
+                        Color c = source.GetPixel(j - outLineWidth, i - outLineWidth);
+                        result.SetPixel(j, i, c);
+                    }
+                    else
+                    {
+                        result.SetPixel(j, i, color);
+                    }
                 }
             }
+            result.Apply();
+            return result;
         }
-        result.Apply();
-        return result;
+        else
+        {
+            return source;
+        }
+        
     }
 
     /// <summary>

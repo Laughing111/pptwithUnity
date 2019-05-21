@@ -177,6 +177,71 @@ public class UIDownLoadManager : MonoBehaviour
             }
             else  //全局配置参数
             {
+                Debug.Log(panelName);
+                int assetsCount = data[i][panelName].Count;
+                Debug.Log(assetsCount);
+                for (int j = 0; j < assetsCount; j++)
+                {
+                    string asstsName = data[i][panelName][j]["name"].ToString();
+                    JsonData modeData = data[i][panelName][j]["mode"];
+                    bool mode = false;
+                    if (modeData != null)
+                    {
+                        if (modeData.ToString() == "1")
+                        {
+                            mode = true;
+                        }
+                    }
+                    JsonData numData;
+                    switch (asstsName)
+                    {
+                        case "g_mode_photo":
+                            UserModel.Ins.mode_photo = mode;
+                            break;
+                        case "g_mode_gif":
+                            UserModel.Ins.mode_gif = mode;
+                            break;
+                        case "g_mode_pstick":
+                            UserModel.Ins.mode_pstick = mode;
+                            break;
+                        case "g_mode_gstick":
+                            UserModel.Ins.mode_gstick = mode;
+                            break;
+                        case "g_mode_print":
+                            UserModel.Ins.mode_print = mode;
+                            break;
+                        case "g_mode_frame":
+                            UserModel.Ins.mode_frame = mode;
+                            break;
+                        case "g_num_pfp":
+                            numData = data[i][panelName][j]["num"];
+                            if (numData != null)
+                            {
+                                int num;
+                                int.TryParse(numData.ToString(), out num);
+                                UserModel.Ins.num_pfp = num;
+                            }
+                            break;
+                        case "g_num_ph":
+                             numData = data[i][panelName][j]["num"];
+                            if (numData != null)
+                            {
+                                int num;
+                                int.TryParse(numData.ToString(), out num);
+                                UserModel.Ins.num_ph = num;
+                            }
+                            break;
+                        case "g_num_pw":
+                            numData = data[i][panelName][j]["num"];
+                            if (numData != null)
+                            {
+                                int num;
+                                int.TryParse(numData.ToString(), out num);
+                                UserModel.Ins.num_pw = num;
+                            }
+                            break;
+                    }
+                }
 
             }
         }

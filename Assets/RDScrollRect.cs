@@ -24,10 +24,11 @@ namespace RDFW
     {
         public bool isMouseDown;
         public bool isPointDown;
-        public float endX;
-        public float startX;
+        private float endX;
+        private float startX;
+        public float endReserved;
         public Camera renderCamera;
-        private GameObject mask;
+        //private GameObject mask;
         private Vector3 dragDelta=Vector3.zero;
         private RectTransform rt;
         private Vector3 oldPos;
@@ -37,21 +38,16 @@ namespace RDFW
         [Range(0,1)]
         public float sensitive;
         private void Start()
-        {
-            
+        {  
             rt = transform.GetComponent<RectTransform>();
             rt.anchoredPosition3D = new Vector3(startX, rt.anchoredPosition3D.y, rt.anchoredPosition3D.z);
             oldPos = rt.anchoredPosition3D;
-            if (mask == null)
-            {
-                mask = new GameObject("DragMask");
-                mask.transform.SetParent(transform.parent, false);
-                mask.AddComponent<RectTransform>().sizeDelta = transform.GetComponent<RectTransform>().sizeDelta;
-                mask.GetComponent<RectTransform>().anchoredPosition3D = Vector3.zero;
-                mask.transform.SetAsLastSibling();
-                mask.AddComponent<RawImage>().color=new Color(1,1,1,0.3f);
-                mask.GetComponent<RawImage>().raycastTarget = false;
-            }
+            //设置content的宽高和位置
+            int width =(int)(transform.GetChild(transform.childCount - 1).GetComponent<RectTransform>().anchoredPosition3D.x+ transform.GetChild(transform.childCount - 1).GetComponent<RectTransform>().sizeDelta.x);
+            rt.sizeDelta = new Vector2(width, rt.sizeDelta.y);
+            rt.SetLocalPos(Pos.x,width * 0.5f - Screen.width * 0.5f);
+            startX = width * 0.5f - Screen.width * 0.5f;
+            endX = ((width - Screen.width)*0.5f+endReserved)*-1;
         }
         private void Update()
         {
@@ -99,24 +95,26 @@ namespace RDFW
 
             if (isMouseDown&&!isPointDown)
             {
-                if (tweener!=null&&tweener.IsPlaying())
-                {
-                    tweener.Kill();
+                //if (tweener!=null&&tweener.IsPlaying())
+                //{
+                //    tweener.Kill();
                     
-                }
-                tweener=rt.DOLocalMoveX(Input.mousePosition.x - dragDelta.x,0.1f)
-                    .OnStart(()=>mask.GetComponent<RawImage>().raycastTarget = true)
-                    .OnComplete(() => { StopAllCoroutines();StartCoroutine(WaiteForSeconds(() => mask.GetComponent<RawImage>().raycastTarget = false)); });
+                //}
+                rt.SetLocalPos(Pos.x, Input.mousePosition.x - dragDelta.x);
+                //tweener = rt.DOLocalMoveX(Input.mousePosition.x - dragDelta.x, 0.1f);
+                    //.OnStart(()=>mask.GetComponent<RawImage>().raycastTarget = true)
+                    //.OnComplete(() => { StopAllCoroutines();StartCoroutine(WaiteForSeconds(() => mask.GetComponent<RawImage>().raycastTarget = false)); });
             }
             else if (isPointDown&&!isMouseDown)
             {
-                if (tweener != null&&tweener.IsPlaying())
-                {
-                    tweener.Kill();
-                }
-                tweener = rt.DOLocalMoveX(selectTouch.position.x - dragDelta.x, 0.1f)
-                    .OnStart(() => mask.GetComponent<RawImage>().raycastTarget = true)
-                    .OnComplete(() => { StopAllCoroutines(); StartCoroutine(WaiteForSeconds(()=>mask.GetComponent<RawImage>().raycastTarget = false)); } );
+                //if (tweener != null&&tweener.IsPlaying())
+                //{
+                //    tweener.Kill();
+                //}
+                rt.SetLocalPos(Pos.x, selectTouch.position.x - dragDelta.x);
+                //tweener = rt.DOLocalMoveX(selectTouch.position.x - dragDelta.x, 0.1f);
+                    //.OnStart(() => mask.GetComponent<RawImage>().raycastTarget = true)
+                    //.OnComplete(() => { StopAllCoroutines(); StartCoroutine(WaiteForSeconds(()=>mask.GetComponent<RawImage>().raycastTarget = false)); } );
             }
 
         } 

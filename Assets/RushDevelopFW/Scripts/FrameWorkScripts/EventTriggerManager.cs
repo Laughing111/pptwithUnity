@@ -78,8 +78,7 @@ namespace RDFW
             clickListened += ClickEvent;
         }
         public void AddPUEvent(PointUpListened ClickEvent)
-        {
-
+        {  
             pointUpListened += ClickEvent;
         }
         public void AddPDEvent(PointDownListened ClickEvent)

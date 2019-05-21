@@ -127,8 +127,16 @@ public partial class d_P_Share : UIBase
             fileName = RDTimer.GetTime() + ".png";
             um.fileName = fileName;
             trans_d_bg_gif.gameObject.SetActive(false);
-            trans_d_bg_photo.gameObject.SetActive(true);
+            trans_d_bg_photo.gameObject.SetActive(true); 
             Display(false);
+            if (!UserModel.Ins.mode_print)
+            {
+                trans_d_btn_print.gameObject.SetActive(false);
+            }
+            else
+            {
+                trans_d_btn_print.gameObject.SetActive(true);
+            }
         }
     }
 

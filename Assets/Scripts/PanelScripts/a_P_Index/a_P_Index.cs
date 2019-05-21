@@ -36,7 +36,7 @@ public partial class a_P_Index : UIBase {
 
     public override void OnActive()
     {   
-        if(UserModel.Ins.GetShotMode() == ShotMode.Jpg)
+        if (UserModel.Ins.GetShotMode() == ShotMode.Jpg)
         {
             isJPGMode = true;
         }
@@ -45,7 +45,35 @@ public partial class a_P_Index : UIBase {
             isJPGMode = false;
         }
         DisGif_JPG(isJPGMode);
+        CheckFuncMode();
         base.OnActive();
+    }
+
+    private void CheckFuncMode()
+    {
+        //说明含有拍照模式
+        if (UserModel.Ins.mode_photo&&!UserModel.Ins.mode_gif)
+        {
+            UserModel.Ins.SetShotMode(ShotMode.Jpg);
+            trans_a_gifActive.gameObject.SetActive(false);
+            trans_a_btn_gif_normal.gameObject.SetActive(false);
+            trans_a_btn_right.gameObject.SetActive(false);
+            trans_a_btn_left.gameObject.SetActive(false);
+        }
+        else if(!UserModel.Ins.mode_photo &&UserModel.Ins.mode_gif)
+        {
+            UserModel.Ins.SetShotMode(ShotMode.Gif);
+            trans_a_gifInActive.gameObject.SetActive(false);
+            trans_a_btn_photo_normal.gameObject.SetActive(false);
+            trans_a_btn_right.gameObject.SetActive(false);
+            trans_a_btn_left.gameObject.SetActive(false);
+        }
+        else if(!UserModel.Ins.mode_photo&&!UserModel.Ins.mode_gif)
+        {
+            trans_a_gifInActive.gameObject.SetActive(false);
+            trans_a_gifActive.gameObject.SetActive(false);
+            trans_a_btn_next.gameObject.SetActive(false);
+        }
     }
 
     private void DisGif_JPG(bool isJpg)
