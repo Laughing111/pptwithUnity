@@ -428,9 +428,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isMouseDown: 0
   isPointDown: 0
+  endX: 0
+  startX: 0
   endReserved: 100
   renderCamera: {fileID: 534669904}
-  ControlIconSelectable: 0
   sensitive: 0.5
 --- !u!114 &120487122
 MonoBehaviour:

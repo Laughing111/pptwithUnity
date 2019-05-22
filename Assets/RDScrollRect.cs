@@ -24,8 +24,8 @@ namespace RDFW
     {
         public bool isMouseDown;
         public bool isPointDown;
-        private float endX;
-        private float startX;
+        public float endX;
+        public float startX;
         public float endReserved;
         public Camera renderCamera;
         //private GameObject mask;
@@ -33,7 +33,7 @@ namespace RDFW
         private RectTransform rt;
         private Vector3 oldPos;
         private Touch selectTouch;
-        public bool ControlIconSelectable;
+        //public bool ControlIconSelectable;
         private Tweener tweener;
         [Range(0,1)]
         public float sensitive;
@@ -44,10 +44,18 @@ namespace RDFW
             oldPos = rt.anchoredPosition3D;
             //设置content的宽高和位置
             int width =(int)(transform.GetChild(transform.childCount - 1).GetComponent<RectTransform>().anchoredPosition3D.x+ transform.GetChild(transform.childCount - 1).GetComponent<RectTransform>().sizeDelta.x);
+            if (width <=1920)
+            {
+                width = 1920;
+            }
             rt.sizeDelta = new Vector2(width, rt.sizeDelta.y);
             rt.SetLocalPos(Pos.x,width * 0.5f - Screen.width * 0.5f);
-            startX = width * 0.5f - Screen.width * 0.5f;
+            startX = width * 0.5f - Screen.width * 0.5f; 
             endX = ((width - Screen.width)*0.5f+endReserved)*-1;
+            if (width == 1920)
+            {
+                endX = 0;
+            }
         }
         private void Update()
         {
@@ -94,27 +102,14 @@ namespace RDFW
             }
 
             if (isMouseDown&&!isPointDown)
-            {
-                //if (tweener!=null&&tweener.IsPlaying())
-                //{
-                //    tweener.Kill();
-                    
-                //}
-                rt.SetLocalPos(Pos.x, Input.mousePosition.x - dragDelta.x);
-                //tweener = rt.DOLocalMoveX(Input.mousePosition.x - dragDelta.x, 0.1f);
-                    //.OnStart(()=>mask.GetComponent<RawImage>().raycastTarget = true)
-                    //.OnComplete(() => { StopAllCoroutines();StartCoroutine(WaiteForSeconds(() => mask.GetComponent<RawImage>().raycastTarget = false)); });
+            {  
+              rt.SetLocalPos(Pos.x, Input.mousePosition.x - dragDelta.x);
             }
             else if (isPointDown&&!isMouseDown)
             {
-                //if (tweener != null&&tweener.IsPlaying())
-                //{
-                //    tweener.Kill();
-                //}
+                
                 rt.SetLocalPos(Pos.x, selectTouch.position.x - dragDelta.x);
-                //tweener = rt.DOLocalMoveX(selectTouch.position.x - dragDelta.x, 0.1f);
-                    //.OnStart(() => mask.GetComponent<RawImage>().raycastTarget = true)
-                    //.OnComplete(() => { StopAllCoroutines(); StartCoroutine(WaiteForSeconds(()=>mask.GetComponent<RawImage>().raycastTarget = false)); } );
+                
             }
 
         } 
@@ -137,7 +132,7 @@ namespace RDFW
 
         private IEnumerator WaiteForSeconds(Action method)
         {
-            ControlIconSelectable = true;
+            //ControlIconSelectable = true;
             yield return new WaitForSeconds(0.2f);
             method();
         }

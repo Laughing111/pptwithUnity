@@ -78,7 +78,7 @@ public class UploadObject
            
             Debug.Log(uploadMan.accessKeyId);
             client = new OssClient(AddressConfig.EndPoint, uploadMan.accessKeyId, uploadMan.accessKeySecret, uploadMan.securityToken); 
-            client.PutObject(uploadMan.bucket, uploadMan.fileName, uploadMan.localPath);
+            client.PutObject(uploadMan.bucket, uploadMan.lineid + "/"+ uploadMan.fileName, uploadMan.localPath);
             Debug.Log("本地文件上传成功:" + uploadMan.localPath);
             string url = string.Format("https://{0}.{1}/{2}", uploadMan.bucket, AddressConfig.EndPoint, uploadMan.lineid + "/" + uploadMan.fileName);
             Debug.LogFormat("url:" + url);

@@ -81,14 +81,13 @@ public partial class d_P_Share : UIBase
         {
             sucEncode = false;
             trans_qrcode.gameObject.SetActive(true);
-            trans_qrcode.GetComponent<RawImage>().texture = QRManager.Encode("http://x-resource.oss-cn-hangzhou.aliyuncs.com/"+UserModel.Ins.lineid+"/h5/global/" + fileName, 226,226);
+            trans_qrcode.GetComponent<RawImage>().texture = QRManager.Encode(@"https://h5.btech.cc/" + UserModel.Ins.lineid+ "/index.html?i=" + fileName, 226,226);
         }
     }
 
     public override void OnActive()
     {
         um = new UploadMan(UserModel.Ins.securityToken, AddressConfig.Bucket, UserModel.Ins.lineid, UserModel.Ins.accessId, UserModel.Ins.accessSecret, fileName, (x) => {
-            Debug.Log("去生成二维码:" + x + "http://x-resource.oss-cn-hangzhou.aliyuncs.com/"+ UserModel.Ins.lineid + "/h5/global/" + fileName);
             sucEncode = true;
         },
         UserModel.Ins.GetLocalPath());

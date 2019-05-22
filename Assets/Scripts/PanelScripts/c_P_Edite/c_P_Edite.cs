@@ -35,7 +35,7 @@ public partial class c_P_Edite : UIBase
     {
         //if(offLine)
         //{
-        CheckAndCreateIconBtn();
+        //CheckAndCreateIconBtn();
         //} 
         PanelInit();
 
@@ -62,6 +62,31 @@ public partial class c_P_Edite : UIBase
     {
         CheckAndCreateIconBtn(messageAddress.Parameters as Texture2D[]);
         RegisterIcon();
+    }
+
+
+    private void ResetIocn()
+    {
+        Transform jt = trans_c_icon_jpg;
+        int iconCountsJ = jt.childCount;
+        if (iconCountsJ > 0)
+        {
+            for (int i = 0; i < iconCountsJ; i++)
+            {
+                Destroy(jt.GetChild(i).gameObject);
+            }
+        }
+        Transform gt = trans_c_icon_gif;
+        //gif数量
+        for (int i = 0; i < 3; i++)
+        {
+            int gtCount = gt.GetChild(i).childCount;
+            Transform gificon = gt.GetChild(i);
+            for (int j = 0; j < gtCount; j++)
+            {
+                Destroy(gificon.GetChild(j).gameObject);
+            }
+        }
     }
 
     /// <summary>
@@ -108,6 +133,12 @@ public partial class c_P_Edite : UIBase
         {
             RegisterInterObjectClick(trans_c_icon_group.GetChild(i), AddIcon);
         }
+        RegisterInterObjectClick(trans_c_icon_group.GetChild(0), ResetIcon);
+    }
+
+    private void ResetIcon(PointerEventData eventData)
+    {
+        ResetIocn();
     }
 
     private void DisPlayGif()
