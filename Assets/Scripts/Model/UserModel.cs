@@ -77,7 +77,11 @@ public class UserModel
     }
 
     //oss 上传的token
-    private string token;
+    public string securityToken { set; get; }
+    public string lineid { set; get; }
+    public string accessId { set; get; }
+    public string accessSecret { set; get; }
+                                              
     private ShotMode shotMode;
     private Texture2D camRaw;
     private string[] localRawCam;
@@ -89,19 +93,7 @@ public class UserModel
     private string H5Url;
 
     private Texture2D[] GifTex;
-
-    #region token
-    public string GetToken()
-    {
-        return token;
-    }
-
-    public void StoreToken(string _token)
-    {
-        token = _token;
-    }
-    #endregion
-
+    
     private State currentState;
     public State CurrentState
     {

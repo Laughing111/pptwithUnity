@@ -266,10 +266,16 @@ public partial class c_P_Edite : UIBase
         {
             Directory.CreateDirectory(arg1);
         }
-        if(UserModel.Ins.mode_frame)
+        if (UserModel.Ins.mode_frame)
         {
-            Debug.Log("width:" + UserModel.Ins.num_pfp);
-            arg2 = CameraManager.Instan().AddOutLine(arg2, UserModel.Ins.num_pfp, Color.white);
+            arg2 = CameraManager.Instan().ScaleTexture(arg2, UserModel.Ins.num_pw - UserModel.Ins.num_pfp * 2, UserModel.Ins.num_ph - UserModel.Ins.num_pfp * 2);
+        }
+        else
+        {
+            if (UserModel.Ins.num_ph != arg2.height || UserModel.Ins.num_pw != arg2.width)
+            {
+                arg2 = CameraManager.Instan().ScaleTexture(arg2, UserModel.Ins.num_pw, UserModel.Ins.num_ph);
+            }
         }
         File.WriteAllBytes(arg1 + jpgFileName, arg2.EncodeToPNG());
         UserModel.Ins.StoreLocalPath(arg1 + jpgFileName);
@@ -289,8 +295,15 @@ public partial class c_P_Edite : UIBase
         for (int i = 0; i < 3; i++)
         {
             if (UserModel.Ins.mode_frame)
+            {  
+               arg2[i] = CameraManager.Instan().ScaleTexture(arg2[i], UserModel.Ins.num_pw- UserModel.Ins.num_pfp*2, UserModel.Ins.num_ph- UserModel.Ins.num_pfp * 2);
+            }
+            else
             {
-                arg2[i] = CameraManager.Instan().AddOutLine(arg2[i], UserModel.Ins.num_pfp, Color.white);
+               if(UserModel.Ins.num_ph != arg2[i].height || UserModel.Ins.num_pw != arg2[i].width)
+                {
+                    arg2[i] = CameraManager.Instan().ScaleTexture(arg2[i], UserModel.Ins.num_pw, UserModel.Ins.num_ph);
+                }
             }
             File.WriteAllBytes(arg1 + i.ToString() + ".png", arg2[i].EncodeToPNG());
         }

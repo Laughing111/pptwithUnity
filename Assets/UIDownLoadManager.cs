@@ -296,8 +296,6 @@ public class UIDownLoadManager : MonoBehaviour
                                     img.sprite = Sprite.Create(kv.Value, new Rect(0, 0, kv.Value.width, kv.Value.height), Vector2.zero);
                                     img.SetNativeSize();
                                 }
-                                
-
                                 //设置素材的位置
                                 if (panelPosPairs.ContainsKey(astName))
                                 {
@@ -515,8 +513,8 @@ public class UIDownLoadManager : MonoBehaviour
     public void CheckAndUpdate()
     {
 
-        //CheckUUID();
-        StartCoroutine(GetJsonText(ReadJson)); 
+        CheckUUID();
+        //StartCoroutine(GetJsonText(ReadJson)); 
     }
 
     public void UpdateJsonAndTexture2D(string jsondata)
@@ -531,6 +529,7 @@ public class UIDownLoadManager : MonoBehaviour
     }
 
     private string uuid;
+    private string token;
     /// <summary>
     /// 获取本地uuid,并http-get验证token
     /// </summary>
@@ -566,12 +565,65 @@ public class UIDownLoadManager : MonoBehaviour
             Debug.Log(tokenData.status + ":" + tokenData.data.data_json);
             if (tokenData.status == 200)
             {
-                UserModel.Ins.StoreToken(tokenData.data.token);
-                AfterTokenAndUpdate?.Invoke(tokenData.data.data_json);
+                //token=tokenData.data.token;
+                Debug.Log(tokenData.data.token);
+                UserModel.Ins.lineid = uuid;
+                yield return GetOssConfig(tokenData.data.token, tokenData.data.data_json);
             }
             else
             {
                 debugText.text = "uuid失效，请重新输入。";
+                MessageCenter.GetMessage(PanelAssets_e_Setting.e_Setting.ToString(), new MessageAddress("PopInput", null));
+            }
+        }
+    }
+
+    private IEnumerator GetOssConfig(string token,string jsonData)
+    {
+        Dictionary<string, string> header = new Dictionary<string, string>();
+        header.Add("token", token);
+        WWW www = new WWW("http://tweb.btech.cc/api/v1/photo",null, header);
+        yield return www;
+        if (www.error != null)
+        {
+            Debug.Log(www.error);
+            debugText.text = "访问出错...";
+            MessageCenter.GetMessage(PanelAssets_e_Setting.e_Setting.ToString(), new MessageAddress("PopInput", null));
+        }
+        else
+        {
+            Debug.Log(www.text);
+            JsonData configData =JsonMapper.ToObject(www.text);
+            if (configData["status"].ToString() == "200")
+            {
+                if (configData["data"] != null)
+                {
+                    JsonData jd = configData["data"];
+                    if (jd["token"] != null)
+                    {
+                        Debug.Log("Get Token");
+                        if (jd["token"]["AccessKeyId"] != null)
+                        {   
+                            UserModel.Ins.accessId = jd["token"]["AccessKeyId"].ToString();
+                            Debug.Log(UserModel.Ins.accessId);
+                        }
+                        if (jd["token"]["AccessKeySecret"] != null)
+                        {
+                            UserModel.Ins.accessSecret = jd["token"]["AccessKeySecret"].ToString();
+                            Debug.Log(UserModel.Ins.accessSecret);
+                        }
+                        if (jd["token"]["SecurityToken"] != null)
+                        {
+                            UserModel.Ins.securityToken = jd["token"]["SecurityToken"].ToString();
+                            Debug.Log(UserModel.Ins.securityToken);
+                        }
+                        AfterTokenAndUpdate?.Invoke(jsonData);
+                    }
+                }
+            }
+            else
+            {
+                debugText.text = "远程终端出错...";
                 MessageCenter.GetMessage(PanelAssets_e_Setting.e_Setting.ToString(), new MessageAddress("PopInput", null));
             }
         }
@@ -594,3 +646,4 @@ public class TokenData
     public string online;
     public string token;
 }
+

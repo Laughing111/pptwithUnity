@@ -37,12 +37,7 @@ public partial class d_P_Share : UIBase
         if(File.Exists(Application.streamingAssetsPath + "/printer.txt"))
         {
             printerName = File.ReadAllText(Application.streamingAssetsPath + "/printer.txt");
-        }  
-        um = new UploadMan(fileName, (x) => {
-            Debug.Log("去生成二维码:" + x + "https://h5.btech.cc/ab06-723e-11e9-baa1/index.html?i=" + fileName);
-            sucEncode = true;
-        }, 
-        UserModel.Ins.GetLocalPath());
+        }
         uo = new UploadObject();
         PanelInit();
     }
@@ -65,8 +60,7 @@ public partial class d_P_Share : UIBase
         try
         {
             //Print.PrintTextureByPath(UserModel.Ins.GetLocalPath(), 1, "DP-DS620");
-            Texture2D tex = UserModel.Ins.GetFXJPGTex();
-            
+            Texture2D tex = UserModel.Ins.GetFXJPGTex(); 
             Print.PrintTexture(tex.EncodeToPNG(),1, printerName);
         }
         catch(Exception e) {
@@ -87,13 +81,19 @@ public partial class d_P_Share : UIBase
         {
             sucEncode = false;
             trans_qrcode.gameObject.SetActive(true);
-            trans_qrcode.GetComponent<RawImage>().texture = QRManager.Encode("https://h5.btech.cc/ab06-723e-11e9-baa1/index.html?i=" + fileName,226,226);
+            trans_qrcode.GetComponent<RawImage>().texture = QRManager.Encode("http://x-resource.oss-cn-hangzhou.aliyuncs.com/"+UserModel.Ins.lineid+"/h5/global/" + fileName, 226,226);
         }
     }
 
     public override void OnActive()
     {
-       
+        um = new UploadMan(UserModel.Ins.securityToken, AddressConfig.Bucket, UserModel.Ins.lineid, UserModel.Ins.accessId, UserModel.Ins.accessSecret, fileName, (x) => {
+            Debug.Log("去生成二维码:" + x + "http://x-resource.oss-cn-hangzhou.aliyuncs.com/"+ UserModel.Ins.lineid + "/h5/global/" + fileName);
+            sucEncode = true;
+        },
+        UserModel.Ins.GetLocalPath());
+        Debug.Log(um.accessKeyId);
+
         base.OnActive();
 
         CheckMode();
